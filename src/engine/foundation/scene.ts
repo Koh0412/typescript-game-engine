@@ -9,8 +9,8 @@ import { CanvasScreen } from "./display/canvasScreen";
 export class Scene extends EventDispatcher {
   name: string;
   actors: Actor[];
-  canvas: CanvasScreen;
 
+  protected canvas: CanvasScreen;
   private backgroundColor: string;
   private destroyedActors: Actor[];
 
@@ -43,15 +43,6 @@ export class Scene extends EventDispatcher {
   }
 
   /**
-   * actorを配列から削除
-   * @param actor
-   */
-  remove(actor: Actor): void {
-    const index = this.actors.indexOf(actor);
-    this.actors.splice(index, 1);
-  }
-
-  /**
    * シーンの切り替え
    * @param newScene
    */
@@ -79,6 +70,15 @@ export class Scene extends EventDispatcher {
    */
   setBackgroundColor(color: string): void {
     this.backgroundColor = color;
+  }
+
+  /**
+   * actorを配列から削除
+   * @param actor
+   */
+  private remove(actor: Actor): void {
+    const index = this.actors.indexOf(actor);
+    this.actors.splice(index, 1);
   }
 
   /**
