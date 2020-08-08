@@ -8,6 +8,8 @@ import { CanvasScreen } from "./display/canvasScreen";
 export class Actor extends EventDispatcher {
   hitArea: Rectangle;
   tags: string[];
+  sceneName: string = "";
+
   private hitAreaOffsetX: number;
   private hitAreaOffsetY: number;
   private _x: number = 0;

@@ -8,9 +8,9 @@ import { CanvasScreen } from "./display/canvasScreen";
 
 export class Scene extends EventDispatcher {
   name: string;
-  actors: Actor[];
 
   protected canvas: CanvasScreen;
+  private actors: Actor[];
   private backgroundColor: string;
   private destroyedActors: Actor[];
 
@@ -30,6 +30,7 @@ export class Scene extends EventDispatcher {
    */
   add(actor: Actor): void {
     this.actors.push(actor);
+    actor.sceneName = this.name;
     actor.addEventListener("spawnactor", (e) => this.add(e.target));
     actor.addEventListener("destroy", (e) => this.addDestroyActor(e.target));
   }
