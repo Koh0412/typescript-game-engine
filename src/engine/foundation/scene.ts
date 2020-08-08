@@ -25,34 +25,6 @@ export class Scene extends EventDispatcher {
   }
 
   /**
-   * `actor`を配列に追加し、イベントの実行を行う
-   * @param actor
-   */
-  add(actor: Actor): void {
-    this.actors.push(actor);
-    actor.sceneName = this.name;
-    actor.addEventListener("spawnactor", (e) => this.add(e.target));
-    actor.addEventListener("destroy", (e) => this.addDestroyActor(e.target));
-  }
-
-  /**
-   * `actors`をすべて配列に追加
-   * @param actors
-   */
-  addAll(actors: Actor[]): void {
-    actors.forEach((actor) => this.add(actor));
-  }
-
-  /**
-   * シーンの切り替え
-   * @param newScene
-   */
-  changeScene(newScene: Scene): void {
-    const event = new GameEvent(newScene);
-    this.dispatch("changeScene", event);
-  }
-
-  /**
    * 更新処理
    * @param gameInfo
    * @param input
@@ -71,6 +43,34 @@ export class Scene extends EventDispatcher {
    */
   setBackgroundColor(color: string): void {
     this.backgroundColor = color;
+  }
+
+  /**
+   * シーンの切り替え
+   * @param newScene
+   */
+  protected changeScene(newScene: Scene): void {
+    const event = new GameEvent(newScene);
+    this.dispatch("changeScene", event);
+  }
+
+  /**
+   * `actor`を配列に追加し、イベントの実行を行う
+   * @param actor
+   */
+  protected add(actor: Actor): void {
+    this.actors.push(actor);
+    actor.sceneName = this.name;
+    actor.addEventListener("spawnactor", (e) => this.add(e.target));
+    actor.addEventListener("destroy", (e) => this.addDestroyActor(e.target));
+  }
+
+  /**
+   * `actors`をすべて配列に追加
+   * @param actors
+   */
+  protected addAll(actors: Actor[]): void {
+    actors.forEach((actor) => this.add(actor));
   }
 
   /**
