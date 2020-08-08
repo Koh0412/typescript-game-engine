@@ -1,8 +1,8 @@
 import { SpriteActor, Sprite } from "../../engine/sprite";
 import { Rectangle, GameInformation } from "../../engine/foundation";
-import { Input } from "../../engine/event";
 
 import { Bullet } from "./bullet";
+import { Input } from "../../engine/UI";
 
 export class Fighter extends SpriteActor {
   speed: number;

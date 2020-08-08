@@ -2,7 +2,7 @@ import { Actor } from "../foundation/actor";
 import { Sprite } from "./sprite";
 import { Rectangle } from "../foundation/display/rectangle";
 import { CanvasScreen, GameInformation } from "../foundation";
-import { Input } from "../event";
+import { Input } from "../UI";
 
 export abstract class SpriteActor extends Actor {
   sprite: Sprite;

@@ -1,9 +1,10 @@
 import { SpriteActor, Sprite } from "../../../engine/sprite";
 import { Rectangle, GameInformation } from "../../../engine/foundation";
-import { GameEvent, Input } from "../../../engine/event";
+import { GameEvent } from "../../../engine/event";
 
 import { EnemyBullet } from "./enemyBullet";
 import { EventName } from "../../common/constants/eventConst";
+import { Input } from "../../../engine/UI";
 
 export class Enemy extends SpriteActor {
   maxHp: number;

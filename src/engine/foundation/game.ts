@@ -1,8 +1,8 @@
-import { InputReceiver } from "../event/inputReceiver";
 import { Scene } from "./scene";
 import { Rectangle } from "../foundation";
 import { GameInformation } from "./gameInformation";
 import { CanvasScreen } from "./display/canvasScreen";
+import { InputReceiver } from "../UI";
 
 export class Game {
   canvas: CanvasScreen;

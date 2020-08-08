@@ -2,7 +2,7 @@ import { EventDispatcher } from "../event/eventDispatcher";
 import { Actor } from "./actor";
 import { GameEvent } from "../event/gameEvent";
 import { GameInformation } from "./gameInformation";
-import { Input } from "../event/input";
+import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
 
 

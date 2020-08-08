@@ -1,8 +1,7 @@
 import { Scene, GameInformation, CanvasScreen } from "../../engine/foundation";
-import { Input } from "../../engine/event";
-
 import { Title } from "../gameObjects/title";
 import { MainStageScene } from "./mainStageScene";
+import { Input } from "../../engine/UI";
 
 export class TitleScene extends Scene {
   constructor(canvas: CanvasScreen) {
