@@ -1,6 +1,6 @@
 import { EventDispatcher } from "../event/eventDispatcher";
 import { Rectangle } from "./display/rectangle";
-import { GameEvent } from "../event/gameEvent";
+import { GameObjectEvent, SceneEvent } from "../event";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
@@ -74,13 +74,13 @@ export class Actor extends EventDispatcher {
    * @param actor
    */
   spawnActor(actor: Actor): void {
-    this.dispatch("spawnactor", new GameEvent(actor))
+    this.dispatch("spawnactor", new GameObjectEvent(actor))
   }
 
   /**
    * destroyイベントの実行
    */
   destroy(): void {
-    this.dispatch("destroy", new GameEvent(this));
+    this.dispatch("destroy", new GameObjectEvent(this));
   }
 }

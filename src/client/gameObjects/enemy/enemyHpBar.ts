@@ -1,6 +1,7 @@
 import { Context2D, CanvasScreen } from "../../../engine/foundation";
 import { Enemy } from "./enemy";
 import { EventName } from "../../common/constants/eventConst";
+import { GameObjectEvent } from "../../../engine/event";
 
 export class EnemyHpBar extends Context2D {
   private innerWidth: number;
@@ -13,7 +14,7 @@ export class EnemyHpBar extends Context2D {
 
     this.innerWidth = this.width;
 
-    enemy.addEventListener(EventName.CHANGE_HP, (e) => {
+    enemy.addEventListener(EventName.CHANGE_HP, (e: GameObjectEvent) => {
       const enemy = e.target as Enemy;
       const maxHp = enemy.maxHp;
       const hp = enemy.currentHp;

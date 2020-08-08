@@ -1,6 +1,6 @@
 import { SpriteActor, Sprite } from "../../../engine/sprite";
 import { Rectangle, GameInformation } from "../../../engine/foundation";
-import { GameEvent } from "../../../engine/event";
+import { GameObjectEvent } from "../../../engine/event";
 
 import { EnemyBullet } from "./enemyBullet";
 import { EventName } from "../../common/constants/eventConst";
@@ -28,7 +28,7 @@ export class Enemy extends SpriteActor {
     this.addEventListener("hit", (e) => {
       if (e.target.hasTag("playerBullet")) {
         this.currentHp--;
-        this.dispatch(EventName.CHANGE_HP, new GameEvent(this));
+        this.dispatch(EventName.CHANGE_HP, new GameObjectEvent(this));
       }
     });
   }

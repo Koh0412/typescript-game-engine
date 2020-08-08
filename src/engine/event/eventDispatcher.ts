@@ -1,10 +1,8 @@
 import { GameEvent } from "./gameEvent";
-
-interface IEventListeners {
-  [type: string]: ((e: GameEvent) => any)[];
-}
-
-type GameEventType = "spawnactor" | "destroy" | "changeScene" | "hit";
+import { GameObjectEvent } from "./gameObjectEvent";
+import { SceneEvent } from "./sceneEvent";
+import { IEventListeners } from "../common/interfaces/event.interface";
+import { GameObjectEventType, SceneEventType } from "../common/types/event.type";
 
 export class EventDispatcher {
   private eventListeners: IEventListeners;
@@ -19,11 +17,12 @@ export class EventDispatcher {
    * @param callback
    */
   // ---------------------------internal interface-------------------------------
-  addEventListener(type: GameEventType, callback: (e: GameEvent) => void): void;
+  addEventListener(type: GameObjectEventType, callback: (e: GameObjectEvent) => void): void;
+  addEventListener(type: SceneEventType, callback: (e: SceneEvent) => void): void;
   addEventListener(type: string, callback: (e: GameEvent) => void): void;
   // ----------------------------------------------------------------------------
 
-  addEventListener(type: GameEventType, callback: (e: GameEvent) => void): void {
+  addEventListener(type: GameObjectEventType | SceneEventType, callback: (e: GameEvent) => void): void {
     if (this.eventListeners[type] === undefined) {
       this.eventListeners[type] = [];
     }
@@ -37,11 +36,12 @@ export class EventDispatcher {
    * @param event
    */
   // ---------------internal interface------------------
-  dispatch(type: GameEventType,  event: GameEvent): void;
+  dispatch(type: GameObjectEventType,  event: GameObjectEvent): void;
+  dispatch(type: SceneEventType,  event: SceneEvent): void;
   dispatch(type: string,  event: GameEvent): void;
   // ---------------------------------------------------
 
-  dispatch(type: GameEventType, event: GameEvent): void {
+  dispatch(type: GameObjectEventType | SceneEventType, event: GameEvent): void {
     const listeners = this.eventListeners[type];
     if (listeners !== undefined) {
       listeners.forEach((callback) => callback(event));

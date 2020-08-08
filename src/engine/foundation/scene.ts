@@ -1,9 +1,10 @@
 import { EventDispatcher } from "../event/eventDispatcher";
 import { Actor } from "./actor";
-import { GameEvent } from "../event/gameEvent";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
+import { SceneEvent } from "../event/sceneEvent";
+import { GameObjectEvent } from "../event";
 
 
 export class Scene extends EventDispatcher {
@@ -50,7 +51,7 @@ export class Scene extends EventDispatcher {
    * @param newScene
    */
   protected changeScene(newScene: Scene): void {
-    const event = new GameEvent(newScene);
+    const event = new SceneEvent(newScene);
     this.dispatch("changeScene", event);
   }
 
@@ -102,8 +103,8 @@ export class Scene extends EventDispatcher {
         const obj2 = this.actors[j];
         const hit = obj1.hitArea.hitTest(obj2.hitArea);
         if(hit) {
-          obj1.dispatch("hit", new GameEvent(obj2));
-          obj2.dispatch("hit", new GameEvent(obj1));
+          obj1.dispatch("hit", new GameObjectEvent(obj2));
+          obj2.dispatch("hit", new GameObjectEvent(obj1));
         }
       }
     }
