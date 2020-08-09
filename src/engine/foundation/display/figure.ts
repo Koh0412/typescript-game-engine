@@ -2,7 +2,7 @@ import { Actor } from "../actor";
 import { Rectangle } from "./rectangle";
 import { CanvasScreen } from "./canvasScreen";
 
-export abstract class Context2D extends Actor {
+export abstract class Figure extends Actor {
   protected width: number;
   protected height: number;
 

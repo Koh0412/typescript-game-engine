@@ -9,6 +9,8 @@ export abstract class SpriteActor extends Actor {
   width: number;
   height: number;
 
+  private context: CanvasRenderingContext2D | null = null;
+
   constructor(x: number, y: number, sprite: Sprite, hitArea: Rectangle, tags: string[] = []) {
     super(x, y, hitArea, tags);
     this.sprite = sprite;
@@ -17,13 +19,8 @@ export abstract class SpriteActor extends Actor {
   }
 
   render(targetCanvas: CanvasScreen): void {
-    const context = targetCanvas.context2D;
-    const rect = this.sprite.rectangle;
-    if (context) {
-      context.drawImage(this.sprite.image,
-        rect.x, rect.y, rect.width, rect.height,
-      this.x, this.y, rect.width, rect.height);
-    }
+    this.context = targetCanvas.context2D;
+    this.drawImageWithSprite(this.sprite, this.x, this.y);
   }
 
   abstract update(gameInfo: GameInformation, input: Input): void;
@@ -42,5 +39,21 @@ export abstract class SpriteActor extends Actor {
     const vertical = (actorBottom < boundRect.y || actorTop > boundRect.height);
 
     return (horizontal || vertical);
+  }
+
+  /**
+   * canvas上にspriteを表示させる 表示させる位置はdx, dyで、範囲はspriteのrectangleのwidth, heightを使用する
+   * @param sprite
+   * @param dx
+   * @param dy
+   */
+  private drawImageWithSprite(sprite: Sprite, dx: number, dy: number) {
+    if (this.context) {
+      const rect = sprite.rectangle;
+      const image = sprite.image;
+
+      this.context.drawImage(image,rect.x, rect.y, rect.width, rect.height,
+      dx, dy, rect.width, rect.height);
+    }
   }
 }

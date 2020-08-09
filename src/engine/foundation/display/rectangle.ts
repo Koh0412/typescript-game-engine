@@ -1,3 +1,6 @@
+/**
+ * 物体の位置(x, y)と幅高さ(width, height)を保持するクラス
+ */
 export class Rectangle {
   x: number;
   y: number;

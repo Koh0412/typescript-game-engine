@@ -1,6 +1,6 @@
-import { Context2D, CanvasScreen } from "../../engine/foundation";
+import { Figure, CanvasScreen } from "../../engine/foundation";
 
-export class Title extends Context2D {
+export class Title extends Figure {
   constructor(x: number, y: number) {
     super(x, y);
   }

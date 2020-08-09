@@ -1,6 +1,6 @@
 export * from "./actor";
 export * from "./assets/assetLoader";
-export * from "./display/context2D";
+export * from "./display/figure";
 export * from "./game";
 export * from "./gameInformation";
 export * from "./display/rectangle";
