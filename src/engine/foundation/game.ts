@@ -34,7 +34,7 @@ export class Game {
    * シーンの切り替え
    * @param newScene
    */
-  changeScene(newScene: Scene) {
+  changeScene(newScene: Scene): void {
     this.currentScene = newScene;
     this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
     console.log(`シーンが${newScene.name}に切り替わりました`);
@@ -43,7 +43,7 @@ export class Game {
   /**
    * ゲームの開始
    */
-  start() {
+  start(): void {
     requestAnimationFrame(this.loop.bind(this));
   }
 
@@ -52,14 +52,19 @@ export class Game {
    * @param canvas
    */
   addCanvas(canvas: CanvasScreen): void {
-    document.body.appendChild(canvas.element as Node);
+    const app = document.createElement("div");
+    app.style.display = "inline-flex";
+    app.style.position = "relative";
+    app.appendChild(canvas.element as Node);
+
+    document.body.appendChild(app);
   }
 
   /**
    * ループ処理
    * @param timestamp
    */
-  private loop(timestamp: number) {
+  private loop(timestamp: number): void {
     const elapsedSec = (timestamp - this.prevTimestamp) / 1000;
     const accuracy = 0.9;
     const frameTime = 1 / this.maxFps * accuracy;
