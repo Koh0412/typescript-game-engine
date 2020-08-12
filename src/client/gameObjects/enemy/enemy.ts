@@ -5,6 +5,7 @@ import { GameObjectEvent } from "../../../engine/event";
 import { EnemyBullet } from "./enemyBullet";
 import { EventName } from "../../common/constants/eventConst";
 import { Input } from "../../../engine/UI";
+import { imageName, tagName } from "../../common/constants/systemConst";
 
 export class Enemy extends SpriteActor {
   maxHp: number;
@@ -12,11 +13,13 @@ export class Enemy extends SpriteActor {
   private interval: number;
   private timeCount: number;
   private velocityX: number;
+  private bulletNumber: number;
+  private bulletSpeed: number;
 
   constructor(x: number, y: number) {
-    const sprite = new Sprite("sprite", new Rectangle(16, 0, 16, 16));
+    const sprite = new Sprite(imageName.SPRITE, new Rectangle(16, 0, 16, 16));
     const hitArea = new Rectangle(0, 0, 16, 16);
-    super(x, y, sprite, hitArea, ["enemy"]);
+    super(x, y, sprite, hitArea, [tagName.ENEMY]);
 
     this.maxHp = 50;
     this.currentHp = this.maxHp;
@@ -24,9 +27,11 @@ export class Enemy extends SpriteActor {
     this.interval = 120;
     this.timeCount = 0;
     this.velocityX = 0.3;
+    this.bulletNumber = 15;
+    this.bulletSpeed = 1;
 
     this.addEventListener("hit", (e) => {
-      if (e.target.hasTag("playerBullet")) {
+      if (e.target.hasTag(tagName.PLAYER_BULLET)) {
         this.currentHp--;
         this.dispatch(EventName.CHANGE_HP, new GameObjectEvent(this));
       }
@@ -39,7 +44,7 @@ export class Enemy extends SpriteActor {
 
     this.timeCount++;
     if(this.timeCount > this.interval) {
-      this.shootCircularBullets(15, 1);
+      this.shootCircularBullets(this.bulletNumber, this.bulletSpeed);
       this.timeCount = 0;
     }
     if (this.currentHp <= 0) {

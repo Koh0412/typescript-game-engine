@@ -3,6 +3,7 @@ import { Rectangle, GameInformation } from "../../engine/foundation";
 
 import { Bullet } from "./bullet";
 import { Input } from "../../engine/UI";
+import { imageName, tagName } from "../common/constants/systemConst";
 
 export class Fighter extends SpriteActor {
   speed: number;
@@ -13,7 +14,7 @@ export class Fighter extends SpriteActor {
   private velocityY: number;
 
   constructor(x: number, y: number) {
-    const sprite = new Sprite("sprite", new Rectangle(0, 0, 16, 16));
+    const sprite = new Sprite(imageName.SPRITE, new Rectangle(0, 0, 16, 16));
     const hitArea = new Rectangle(8, 8, 2, 2);
     super(x, y, sprite, hitArea);
 
@@ -24,7 +25,7 @@ export class Fighter extends SpriteActor {
     this.velocityY = 0;
 
     this.addEventListener("hit", (e) => {
-      if(e.target.hasTag("enemyBullet")) {
+      if(e.target.hasTag(tagName.ENEMY_BULLET)) {
         this.destroy();
       }
     });
