@@ -6,7 +6,6 @@ import { CanvasScreen } from "./display/canvasScreen";
 import { SceneEvent } from "../event/sceneEvent";
 import { GameObjectEvent } from "../event";
 
-
 export class Scene extends EventDispatcher {
   name: string;
 

@@ -10,8 +10,8 @@ import { imageName, tagName } from "../../common/constants/systemConst";
 export class Enemy extends SpriteActor {
   maxHp: number;
   currentHp: number;
+
   private interval: number;
-  private timeCount: number;
   private velocityX: number;
   private bulletNumber: number;
   private bulletSpeed: number;
@@ -25,7 +25,6 @@ export class Enemy extends SpriteActor {
     this.currentHp = this.maxHp;
 
     this.interval = 120;
-    this.timeCount = 0;
     this.velocityX = 0.3;
     this.bulletNumber = 15;
     this.bulletSpeed = 1;
@@ -39,10 +38,10 @@ export class Enemy extends SpriteActor {
   }
 
   update(gameInfo: GameInformation, input: Input): void {
+    this.timeCount++;
     this.x += this.velocityX;
     if (this.x <= 100 || this.x >= 250) { this.velocityX *= -1; }
 
-    this.timeCount++;
     if(this.timeCount > this.interval) {
       this.shootCircularBullets(this.bulletNumber, this.bulletSpeed);
       this.timeCount = 0;

@@ -5,9 +5,10 @@ import { CanvasScreen, GameInformation } from "../foundation";
 import { Input } from "../UI";
 
 export abstract class SpriteActor extends Actor {
-  sprite: Sprite;
-  width: number;
-  height: number;
+  protected sprite: Sprite;
+  protected width: number;
+  protected height: number;
+  protected timeCount: number;
 
   private context: CanvasRenderingContext2D | null = null;
 
@@ -16,6 +17,7 @@ export abstract class SpriteActor extends Actor {
     this.sprite = sprite;
     this.width = sprite.rectangle.width;
     this.height = sprite.rectangle.height;
+    this.timeCount = 0;
   }
 
   render(targetCanvas: CanvasScreen): void {
@@ -29,7 +31,7 @@ export abstract class SpriteActor extends Actor {
    * 画面外に出ようとしているかどうか
    * @param boundRect
    */
-  isOutOfBounds(boundRect: Rectangle): boolean {
+  protected isOutOfBounds(boundRect: Rectangle): boolean {
     const actorLeft = this.x;
     const actorRight = this.x + this.width;
     const actorTop = this.y;

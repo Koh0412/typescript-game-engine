@@ -9,7 +9,6 @@ export class Fighter extends SpriteActor {
   speed: number;
 
   private interval: number;
-  private timeCount: number;
   private velocityX: number;
   private velocityY: number;
 
@@ -20,7 +19,6 @@ export class Fighter extends SpriteActor {
 
     this.interval = 6;
     this.speed = 3;
-    this.timeCount = 0;
     this.velocityX = 0;
     this.velocityY = 0;
 
@@ -33,6 +31,7 @@ export class Fighter extends SpriteActor {
   }
 
   update(gameInfo: GameInformation, input: Input): void {
+    this.timeCount++;
     this.velocityX = 0;
     this.velocityY = 0;
 
@@ -53,12 +52,19 @@ export class Fighter extends SpriteActor {
       this.y -= this.velocityY;
     }
 
-    this.timeCount++;
-    const isFireReady = this.timeCount > this.interval;
-    if (isFireReady && input.getKey(" ")) {
-      const bullet = new Bullet(this.x, this.y);
-      this.spawnActor(bullet);
-      this.timeCount = 0;
+    if (this.isFireReady && input.getKey(" ")) {
+      this.createBullet();
     }
+  }
+
+  private get isFireReady(): boolean {
+    return this.timeCount > this.interval;
+  }
+
+  private createBullet(): Bullet {
+    const bullet = new Bullet(this.x, this.y);
+    this.spawnActor(bullet);
+    this.timeCount = 0;
+    return bullet;
   }
 }
