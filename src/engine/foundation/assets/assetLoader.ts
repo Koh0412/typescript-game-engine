@@ -1,20 +1,27 @@
 export class AssetLoader {
   private assets: Map<string, HTMLImageElement>;
   private promises: Promise<HTMLImageElement>[];
+  private path: string;
 
   constructor() {
     this.assets = new Map<string, HTMLImageElement>();
     this.promises = [];
+    this.path = "";
   }
 
   /**
    * 画像をMapとして格納、promiseを配列に追加する
+   * pathをセットしている場合はファイル名 そうでない場合はファイルパスでセット
    * @param name
    * @param fileName
    */
   addImage(name: string, fileName: string): void {
     const img = new Image();
-    img.src = `resources/img/${fileName}`;
+    if (fileName.includes("/")) {
+      img.src = fileName;
+    } else {
+      img.src = this.path + fileName;
+    }
 
     const promise = new Promise<HTMLImageElement>((resolve) => {
       img.addEventListener("load", (e) => {
@@ -40,6 +47,14 @@ export class AssetLoader {
   async loadAll(): Promise<Map<string, HTMLImageElement>> {
     await Promise.all(this.promises);
     return this.assets;
+  }
+
+  /**
+   * 画像があるフォルダのパスをセット
+   * @param path
+   */
+  setPath(path: string) {
+    this.path = path + "/";
   }
 }
 

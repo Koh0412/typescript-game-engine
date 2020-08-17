@@ -3,6 +3,7 @@ import { Rectangle } from "../foundation";
 import { GameInformation } from "./gameInformation";
 import { CanvasScreen } from "./display/canvasScreen";
 import { InputReceiver } from "../UI";
+import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 
 export class Game {
   canvas: CanvasScreen;
@@ -16,11 +17,11 @@ export class Game {
   private inputReceiver: InputReceiver;
   private prevTimestamp: number;
 
-  constructor(title: string, width: number, height: number, maxFps: number) {
+  constructor(title: string, width: number, height: number) {
     this.title = title;
     this.width = width;
     this.height = height;
-    this.maxFps = maxFps;
+    this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
     this.canvas = new CanvasScreen(width, height);
 
@@ -58,6 +59,14 @@ export class Game {
     app.appendChild(canvas.element as Node);
 
     document.body.appendChild(app);
+  }
+
+  /**
+   * fpsの上限の変更 デフォルトは60
+   * @param max
+   */
+  changeMaxFps(max: number) {
+    this.maxFps = max;
   }
 
   /**
