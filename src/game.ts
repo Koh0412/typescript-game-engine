@@ -2,7 +2,7 @@ import { assets } from "./engine/foundation/assets/assetLoader";
 import { DanmakuGame } from "./client/danmakuGame";
 import { imageName } from "./client/common/constants/systemConst";
 
-assets.setPath("resources/img");
+assets.setImagePath("resources/img");
 assets.addImage(imageName.SPRITE, "sprite.png");
 
 assets.loadAll().then(() => {

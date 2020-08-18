@@ -1,12 +1,12 @@
 export class AssetLoader {
   private assets: Map<string, HTMLImageElement>;
   private promises: Promise<HTMLImageElement>[];
-  private path: string;
+  private imagePath: string;
 
   constructor() {
     this.assets = new Map<string, HTMLImageElement>();
     this.promises = [];
-    this.path = "";
+    this.imagePath = "";
   }
 
   /**
@@ -20,7 +20,7 @@ export class AssetLoader {
     if (fileName.includes("/")) {
       img.src = fileName;
     } else {
-      img.src = this.path + fileName;
+      img.src = this.imagePath + fileName;
     }
 
     const promise = new Promise<HTMLImageElement>((resolve) => {
@@ -53,8 +53,8 @@ export class AssetLoader {
    * 画像があるフォルダのパスをセット
    * @param path
    */
-  setPath(path: string) {
-    this.path = path + "/";
+  setImagePath(path: string): void {
+    this.imagePath = path + "/";
   }
 }
 

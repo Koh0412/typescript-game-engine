@@ -18,7 +18,7 @@ export class Rectangle {
    * sprite同士が当たったかを判定
    * @param other
    */
-  hitTest(other: Rectangle) {
+  hitTest(other: Rectangle): boolean {
     const horizontal = (other.x < this.x + this.width) &&
       (this.x < other.x + other.width);
     const vertical = (other.y < this.y + this.height) &&
