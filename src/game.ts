@@ -1,5 +1,5 @@
 import { assets } from "./engine/foundation/assets/assetLoader";
-import { DanmakuGame } from "./client/danmakuGame";
+import { DanmakuGame } from "./client/config/danmakuGame";
 import { imageName } from "./client/common/constants/systemConst";
 
 assets.setImagePath("resources/img");
