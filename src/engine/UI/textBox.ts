@@ -15,7 +15,7 @@ export class TextBox extends Actor {
    */
   constructor(text: string, color: string, font?: string) {
     const hitarea = new Rectangle(0, 0, 0, 0);
-    super(0, 22, hitarea);
+    super(0, 0, hitarea);
     this.color = color;
     this.text = text;
     font ? this.font = font : this.font = "";
