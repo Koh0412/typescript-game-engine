@@ -1,17 +1,19 @@
 import { Scene, GameInformation, CanvasScreen } from "../../engine/foundation";
 import { MainStageScene } from "./mainStageScene";
-import { Input, Text } from "../../engine/UI";
+import { Input, TextBox } from "../../engine/UI";
 
 export class TitleScene extends Scene {
+  private title: TextBox;
+
   constructor(canvas: CanvasScreen) {
     super("タイトル", canvas);
-    const title = new Text("弾幕STG", "limegreen", "22px serif");
-    title.setPosition(100, 200);
-    this.addAll([title]);
+    this.title = new TextBox("弾幕STG", "limegreen", "22px serif");
+    this.addAll([this.title]);
   }
 
   update(gameInfo: GameInformation, input: Input) {
     super.update(gameInfo, input);
+    this.title.centering();
 
     if(input.getKeyDown(" ")) {
       const mainScene = new MainStageScene(this.canvas);
