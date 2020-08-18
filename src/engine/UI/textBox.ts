@@ -27,10 +27,12 @@ export class TextBox extends Actor {
   render(targetCanvas: CanvasScreen): void {
     this.canvas = targetCanvas;
     const context = this.canvas.context2D;
+
     if (context) {
       context.font = this.font;
       context.fillStyle = this.color;
       context.fillText(this.text, this.x, this.y);
+
       this.textWidth = context.measureText(this.text).width;
     }
   }

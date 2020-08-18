@@ -20,12 +20,19 @@ export abstract class SpriteActor extends Actor {
     this.timeCount = 0;
   }
 
+  abstract update(gameInfo: GameInformation, input: Input): void;
+
   render(targetCanvas: CanvasScreen): void {
     this.context = targetCanvas.context2D;
     this.drawImageWithSprite(this.sprite, this.x, this.y);
   }
 
-  abstract update(gameInfo: GameInformation, input: Input): void;
+  /**
+   * timeCountの初期化
+   */
+  protected initTimeCount() {
+    this.timeCount = 0;
+  }
 
   /**
    * 画面外に出ようとしているかどうか

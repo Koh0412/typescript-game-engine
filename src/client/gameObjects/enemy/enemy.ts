@@ -40,17 +40,30 @@ export class Enemy extends SpriteActor {
   update(gameInfo: GameInformation, input: Input): void {
     this.timeCount++;
     this.x += this.velocityX;
-    if (this.x <= 100 || this.x >= 250) { this.velocityX *= -1; }
+    if (this.isOutOfRange) { this.velocityX *= -1; }
 
     if(this.timeCount > this.interval) {
       this.shootCircularBullets(this.bulletNumber, this.bulletSpeed);
-      this.timeCount = 0;
+      this.initTimeCount();
     }
+
     if (this.currentHp <= 0) {
       this.destroy();
     }
   }
 
+  /**
+   * enemyの行動範囲外かどうか
+   */
+  private get isOutOfRange(): boolean {
+    return this.x <= 100 || this.x >= 250;
+  }
+
+  /**
+   * bulletを一つ生成する
+   * @param degree
+   * @param speed
+   */
   private shootBullet(degree: number, speed: number): void {
     const rad = degree / 180 * Math.PI;
     const velocityX = Math.cos(rad) * speed;
@@ -60,6 +73,11 @@ export class Enemy extends SpriteActor {
     this.spawnActor(bullet);
   }
 
+  /**
+   * bulletを円形状に打つ
+   * @param num
+   * @param speed
+   */
   private shootCircularBullets(num: number, speed: number): void {
     const degree = 360 / num;
     for(let i = 0; i < num; i++) {

@@ -8,6 +8,7 @@ import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 export class Game {
   canvas: CanvasScreen;
 
+  private isPause: boolean;
   private currentScene: Scene | null = null;
   private title: string;
   private width: number;
@@ -27,6 +28,7 @@ export class Game {
 
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
+    this.isPause = false;
 
     console.log(`${title}が初期化されました。`);
   }
@@ -46,6 +48,21 @@ export class Game {
    */
   start(): void {
     requestAnimationFrame(this.loop.bind(this));
+  }
+
+  /**
+   * ゲームの一時停止
+   */
+  pause(): void {
+    this.isPause = true;
+  }
+
+  /**
+   * ゲームの再開
+   */
+  restart() {
+    this.isPause = false;
+    this.start();
   }
 
   /**
@@ -74,6 +91,9 @@ export class Game {
    * @param timestamp
    */
   private loop(timestamp: number): void {
+    if (this.isPause) {
+      return;
+    }
     const elapsedSec = (timestamp - this.prevTimestamp) / 1000;
     const accuracy = 0.9;
     const frameTime = 1 / this.maxFps * accuracy;
