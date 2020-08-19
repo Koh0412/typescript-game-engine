@@ -114,6 +114,9 @@ export class Scene extends EventDispatcher {
    * @param gameInfo
    */
   private clearScreen(gameInfo: GameInformation): void {
+    if (gameInfo.globalBackgroundColor) {
+      this.backgroundColor = gameInfo.globalBackgroundColor;
+    }
     const context = this.canvas.context2D;
     const width = gameInfo.screenRectangle.width;
     const height = gameInfo.screenRectangle.height;

@@ -1,6 +1,6 @@
 import { Scene } from "./scene";
 import { Rectangle } from "../foundation";
-import { GameInformation } from "./gameInformation";
+import { GameInformation, IGameInfo } from "./gameInformation";
 import { CanvasScreen } from "./display/canvasScreen";
 import { InputReceiver } from "../UI";
 import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
@@ -17,6 +17,7 @@ export class Game {
   private currentFps: number;
   private inputReceiver: InputReceiver;
   private prevTimestamp: number;
+  private globalBackgroundColor: string | undefined;
 
   constructor(title: string, width: number, height: number) {
     this.title = title;
@@ -31,38 +32,6 @@ export class Game {
     this.isPause = false;
 
     console.log(`${title}が初期化されました。`);
-  }
-
-  /**
-   * シーンの切り替え
-   * @param newScene
-   */
-  changeScene(newScene: Scene): void {
-    this.currentScene = newScene;
-    this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
-    console.log(`シーンが${newScene.name}に切り替わりました`);
-  }
-
-  /**
-   * ゲームの開始
-   */
-  start(): void {
-    requestAnimationFrame(this.loop.bind(this));
-  }
-
-  /**
-   * ゲームの一時停止
-   */
-  pause(): void {
-    this.isPause = true;
-  }
-
-  /**
-   * ゲームの再開
-   */
-  restart() {
-    this.isPause = false;
-    this.start();
   }
 
   /**
@@ -87,6 +56,54 @@ export class Game {
   }
 
   /**
+   * シーンの切り替え
+   * @param newScene
+   */
+  changeScene(newScene: Scene): void {
+    this.currentScene = newScene;
+    this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
+    console.log(`シーンが${newScene.name}に切り替わりました`);
+  }
+
+  /**
+   * ゲームの一時停止
+   */
+  pause(): void {
+    this.isPause = true;
+  }
+
+  /**
+   * ゲームの再開
+   */
+  restart(): void {
+    this.isPause = false;
+    this.start();
+  }
+
+  setGlobalBackgroundColor(color: string) {
+    this.globalBackgroundColor = color;
+  }
+
+  /**
+   * ゲームの開始
+   */
+  start(): void {
+    requestAnimationFrame(this.loop.bind(this));
+  }
+
+  private get gameInfo(): IGameInfo {
+    const screenRectangle = new Rectangle(0, 0, this.width, this.height);
+    const gameInfo: IGameInfo = {
+      title: this.title,
+      screenRectangle,
+      mapFps: this.maxFps,
+      currentFps: this.currentFps,
+      globalBackroundColor: this.globalBackgroundColor,
+    };
+    return gameInfo;
+  }
+
+  /**
    * ループ処理
    * @param timestamp
    */
@@ -105,8 +122,7 @@ export class Game {
     this.prevTimestamp = timestamp;
     this.currentFps = 1 / elapsedSec;
 
-    const screenRectangle = new Rectangle(0, 0, this.width, this.height);
-    const info = new GameInformation(this.title, screenRectangle, this.maxFps, this.currentFps);
+    const info = new GameInformation(this.gameInfo);
     const input = this.inputReceiver.getInput();
     if (this.currentScene) {
       this.currentScene.update(info, input);
