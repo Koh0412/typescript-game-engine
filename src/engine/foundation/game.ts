@@ -19,7 +19,7 @@ export class Game {
   private prevTimestamp: number;
   private globalBackgroundColor: string | undefined;
 
-  constructor(title: string, width: number, height: number) {
+  constructor(title: string, width: number = 600, height: number = 400) {
     this.title = title;
     this.width = width;
     this.height = height;

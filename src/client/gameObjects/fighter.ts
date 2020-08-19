@@ -64,7 +64,7 @@ export class Fighter extends SpriteActor {
   private createBullet(): Bullet {
     const bullet = new Bullet(this.x, this.y);
     this.spawnActor(bullet);
-    this.timeCount = 0;
+    this.initTimeCount();
     return bullet;
   }
 }
