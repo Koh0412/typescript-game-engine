@@ -1,9 +1,8 @@
 import { assets } from "./engine/foundation/assets/assetLoader";
 import { DanmakuGame } from "./client/config/danmakuGame";
-import { imageName } from "./client/common/constants/systemConst";
+import { resources } from "./client/config/resources";
 
-assets.setImagePath("resources/img");
-assets.addImage(imageName.SPRITE, "sprite.png");
+assets.addResources(resources);
 
 assets.loadAll().then(() => {
   const game = new DanmakuGame();
