@@ -1,7 +1,7 @@
 import { imageName } from "../common/constants/systemConst";
-import { IAsset } from "../../engine/foundation";
+import { IGameResource } from "../../engine/foundation";
 
-export const resources: IAsset[] = [
+export const resources: IGameResource[] = [
   {
     name: imageName.SPRITE,
     fileURL: "resources/img/sprite.png",

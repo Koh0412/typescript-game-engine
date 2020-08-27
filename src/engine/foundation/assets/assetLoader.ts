@@ -1,4 +1,4 @@
-export interface IAsset {
+export interface IGameResource {
   name: string;
   fileURL: string;
   type: "iamge" | "audio";
@@ -17,8 +17,8 @@ export class AssetLoader {
    * リソースをMapとして格納
    * @param assetProps
    */
-  addResources(assetProps: IAsset[]): void {
-    for (const prop of assetProps) {
+  addResources(resourceProps: IGameResource[]): void {
+    for (const prop of resourceProps) {
       switch (prop.type) {
         case "iamge":
           const img = new Image();
@@ -52,7 +52,7 @@ export class AssetLoader {
     return this.assets;
   }
 
-  private createAssetsPromise(el: HTMLElement, prop: IAsset) {
+  private createAssetsPromise(el: HTMLElement, prop: IGameResource) {
     return new Promise<HTMLElement>((resolve) => {
       el.addEventListener("load", (e) => {
         this.assets.set(prop.name, el);
