@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './src/game.ts',
+  entry: './src/client/game.ts',
   watchOptions: {
     ignored: ["node_modules"],
   },
