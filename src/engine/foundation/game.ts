@@ -124,9 +124,7 @@ export class Game {
 
     const info = new GameInformation(this.gameInfo);
     const input = this.inputReceiver.getInput();
-    if (this.currentScene) {
-      this.currentScene.update(info, input);
-    }
+    this.currentScene?.update(info, input);
 
     requestAnimationFrame(this.loop.bind(this));
   }

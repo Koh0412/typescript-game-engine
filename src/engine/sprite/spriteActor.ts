@@ -57,12 +57,10 @@ export abstract class SpriteActor extends Actor {
    * @param dy
    */
   private drawImageWithSprite(sprite: Sprite, dx: number, dy: number) {
-    if (this.context) {
-      const rect = sprite.rectangle;
-      const image = sprite.image;
+    const rect = sprite.rectangle;
+    const image = sprite.image;
 
-      this.context.drawImage(image,rect.x, rect.y, rect.width, rect.height,
-      dx, dy, rect.width, rect.height);
-    }
+    this.context?.drawImage(image,rect.x, rect.y, rect.width, rect.height,
+    dx, dy, rect.width, rect.height);
   }
 }
