@@ -7,7 +7,7 @@ export class CanvasScreen {
     this.canvasElement.height = height;
   }
 
-  get element(): unknown {
+  get element(): HTMLCanvasElement {
     return this.canvasElement;
   }
 

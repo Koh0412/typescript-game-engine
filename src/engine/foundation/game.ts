@@ -42,7 +42,7 @@ export class Game {
     const app = document.createElement("div");
     app.style.display = "inline-flex";
     app.style.position = "relative";
-    app.appendChild(canvas.element as Node);
+    app.appendChild(canvas.element);
 
     document.body.appendChild(app);
   }

@@ -5,6 +5,7 @@ import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
 import { SceneEvent } from "../event/sceneEvent";
 import { GameObjectEvent } from "../event";
+import { Point2D } from "../common/interfaces/system";
 
 export class Scene extends EventDispatcher {
   name: string;
@@ -43,6 +44,21 @@ export class Scene extends EventDispatcher {
    */
   setBackgroundColor(color: string): void {
     this.backgroundColor = color;
+  }
+
+  /**
+   * actorにはクリックしているかどうかを判定したいactorを入れる
+   * @param event
+   * @param actor
+   */
+  clickActor(event: MouseEvent, actor: Actor) {
+    const rect = this.canvas.element.getBoundingClientRect();
+    const point: Point2D = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+    const isClick = actor.hitArea.rectClickTest(point);
+    return isClick;
   }
 
   /**
@@ -100,7 +116,7 @@ export class Scene extends EventDispatcher {
       for(let j = i + 1; j < length; j++) {
         const obj1 = this.actors[i];
         const obj2 = this.actors[j];
-        const hit = obj1.hitArea.hitTest(obj2.hitArea);
+        const hit = obj1.hitArea.hitTestRect(obj2.hitArea);
         if(hit) {
           obj1.dispatch("hit", new GameObjectEvent(obj2));
           obj2.dispatch("hit", new GameObjectEvent(obj1));

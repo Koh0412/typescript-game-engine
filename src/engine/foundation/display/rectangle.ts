@@ -1,3 +1,5 @@
+import { Point2D } from "../../common/interfaces/system";
+
 /**
  * 物体の位置(x, y)と幅高さ(width, height)を保持するクラス
  */
@@ -15,14 +17,24 @@ export class Rectangle {
   }
 
   /**
-   * sprite同士が当たったかを判定
+   * 矩形同士が当たったかを判定
    * @param other
    */
-  hitTest(other: Rectangle): boolean {
+  hitTestRect(other: Rectangle): boolean {
     const horizontal = (other.x < this.x + this.width) &&
       (this.x < other.x + other.width);
     const vertical = (other.y < this.y + this.height) &&
       (this.y < other.y + other.height);
       return (horizontal && vertical);
+  }
+
+  /**
+   * 矩形をクリックしているかどうかを判定
+   * @param point
+   */
+  rectClickTest(point: Point2D): boolean {
+    const hit = (this.x <= point.x && point.x <= this.x + this.width) &&
+      (this.y <= point.y && point.y <= this.y + this.height);
+    return hit;
   }
 }

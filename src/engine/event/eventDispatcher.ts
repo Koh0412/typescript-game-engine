@@ -1,7 +1,7 @@
 import { GameEvent } from "./gameEvent";
 import { GameObjectEvent } from "./gameObjectEvent";
 import { SceneEvent } from "./sceneEvent";
-import { IEventListeners } from "../common/interfaces/event.interface";
+import { IEventListeners } from "../common/interfaces/event";
 import { GameObjectEventType, SceneEventType } from "../common/types/event.type";
 
 export class EventDispatcher {
