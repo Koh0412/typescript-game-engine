@@ -3,8 +3,7 @@ import { Actor } from "./actor";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
-import { SceneEvent } from "../event/sceneEvent";
-import { GameObjectEvent } from "../event";
+import { GameObjectEvent, ClickEvent, SceneEvent } from "../event";
 import { Point2D } from "../common/interfaces/system";
 
 export class Scene extends EventDispatcher {
@@ -23,6 +22,15 @@ export class Scene extends EventDispatcher {
     this.actors = [];
     this.canvas = canvas;
     this.destroyedActors = [];
+
+    addEventListener("click", (e) => {
+      const rect = this.canvas.element.getBoundingClientRect();
+      const point: Point2D = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+      this.dispatch("click", new ClickEvent({ point: point }));
+    });
   }
 
   /**

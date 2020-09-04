@@ -17,5 +17,12 @@ export class MainStageScene extends Scene {
       const titleScene = new TitleScene(canvas);
       this.changeScene(titleScene);
     });
+
+    this.addEventListener("click", (e) => {
+      const isClickFighter = fighter.hitArea.rectClickTest(e.target.point);
+      if (isClickFighter) {
+        this.setBackgroundColor("green");
+      }
+    });
   }
 }

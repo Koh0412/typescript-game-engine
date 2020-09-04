@@ -52,7 +52,7 @@ export class Fighter extends SpriteActor {
       this.y -= this.velocityY;
     }
 
-    if (this.isFireReady && input.getKey(" ")) {
+    if (this.isFireReady && input.getKey("Space")) {
       this.createBullet();
     }
   }
