@@ -7,7 +7,7 @@ import { TitleScene } from "./titleScene";
 
 export class MainStageScene extends Scene {
   constructor(canvas: CanvasScreen) {
-    super("メイン", canvas);
+    super("ステージ", canvas);
     const fighter = new Fighter(150, 300);
     const enemy = new Enemy(150, 100);
     const hpBar = new EnemyHpBar(50, 20, enemy);

@@ -15,7 +15,7 @@ export class TitleScene extends Scene {
     super.update(gameInfo, input);
     this.title.centering();
 
-    if(input.getKeyDown(" ")) {
+    if(input.getKeyDown("Space")) {
       const mainScene = new MainStageScene(this.canvas);
       this.changeScene(mainScene);
     }

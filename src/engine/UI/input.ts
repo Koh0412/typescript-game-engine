@@ -12,6 +12,9 @@ export class Input {
    * @param keyName
    */
   getKey(keyName: string): boolean | undefined {
+    if (keyName === "Space") {
+      keyName = " ";
+    }
     return this.getKeyFromMap(keyName, this.keyMap);
   }
 

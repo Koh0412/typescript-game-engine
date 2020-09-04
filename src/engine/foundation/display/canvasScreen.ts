@@ -1,7 +1,9 @@
 export class CanvasScreen {
+  name: string;
   private canvasElement: HTMLCanvasElement;
 
-  constructor(width: number, height: number) {
+  constructor(name: string, width: number, height: number) {
+    this.name = name;
     this.canvasElement = document.createElement("canvas");
     this.canvasElement.width = width;
     this.canvasElement.height = height;

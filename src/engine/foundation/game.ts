@@ -25,7 +25,7 @@ export class Game {
     this.height = height;
     this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
-    this.canvas = new CanvasScreen(width, height);
+    this.canvas = new CanvasScreen(title, width, height);
 
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
