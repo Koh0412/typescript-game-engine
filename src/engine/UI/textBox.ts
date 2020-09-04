@@ -1,9 +1,14 @@
 import { CanvasScreen, Actor, Rectangle } from "../foundation";
 
+interface ICanvasFont {
+  size: number;
+  family: string;
+}
+
 export class TextBox extends Actor {
   private color: string;
   private text: string;
-  private font: string;
+  private font: ICanvasFont;
   private canvas: CanvasScreen | null;
   private textWidth: number;
 
@@ -13,12 +18,12 @@ export class TextBox extends Actor {
    * @param color
    * @param font
    */
-  constructor(text: string, color: string, font?: string) {
+  constructor(text: string, color: string) {
     const hitarea = new Rectangle(0, 0, 0, 0);
     super(0, 0, hitarea);
     this.color = color;
     this.text = text;
-    font ? this.font = font : this.font = "";
+    this.font = { size: 17, family: "san-serif" };
 
     this.canvas = null;
     this.textWidth = 0;
@@ -29,9 +34,10 @@ export class TextBox extends Actor {
     const context = this.canvas.context2D;
 
     if (context) {
-      context.font = this.font;
+      context.font = `${this.font.size}px ${this.font.family}`;
       context.fillStyle = this.color;
       context.fillText(this.text, this.x, this.y);
+      context.textBaseline = "top"
 
       this.textWidth = context.measureText(this.text).width;
     }
@@ -48,13 +54,29 @@ export class TextBox extends Actor {
   }
 
   /**
+   * テキストの設定
+   * @param value
+   */
+  setText(value: string) {
+    this.text = value;
+  }
+
+  /**
+   * フォントの設定
+   * @param font
+   */
+  setFont(font: ICanvasFont) {
+    this.font = font;
+  }
+
+  /**
    * テキストのセンタリング
    * update関数内で使用する
    */
   centering(): void {
     if (this.canvas) {
       this.x = (this.canvas.width - this.textWidth) / 2;
-      this.y = this.canvas.height / 2;
+      this.y = (this.canvas.height - this.font.size) / 2;
     }
   }
 }

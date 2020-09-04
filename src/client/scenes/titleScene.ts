@@ -7,7 +7,9 @@ export class TitleScene extends Scene {
 
   constructor(canvas: CanvasScreen) {
     super("タイトル", canvas);
-    this.title = new TextBox("弾幕STG", "limegreen", "22px serif");
+    this.title = new TextBox("弾幕STG", "limegreen");
+    this.title.setFont({ size: 22, family: "serif" });
+
     this.addAll([this.title]);
   }
 
