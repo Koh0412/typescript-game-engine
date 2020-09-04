@@ -8,6 +8,7 @@ import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 export class Game {
   canvas: CanvasScreen;
 
+  private container: HTMLElement | null = null;
   private isPause: boolean;
   private currentScene: Scene | null = null;
   private title: string;
@@ -30,6 +31,7 @@ export class Game {
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
     this.isPause = false;
+    this.initContainer();
 
     console.log(`${title}が初期化されました。`);
   }
@@ -39,12 +41,7 @@ export class Game {
    * @param canvas
    */
   addCanvas(canvas: CanvasScreen): void {
-    const app = document.createElement("div");
-    app.style.display = "inline-flex";
-    app.style.position = "relative";
-    app.appendChild(canvas.element);
-
-    document.body.appendChild(app);
+    this.container?.appendChild(canvas.element);
   }
 
   /**
@@ -80,6 +77,10 @@ export class Game {
     this.start();
   }
 
+  /**
+   * 全体の背景色を設定(これを使用する場合は個別に背景色を設定出来ない)
+   * @param color
+   */
   setGlobalBackgroundColor(color: string) {
     this.globalBackgroundColor = color;
   }
@@ -101,6 +102,17 @@ export class Game {
       globalBackroundColor: this.globalBackgroundColor,
     };
     return gameInfo;
+  }
+
+  /**
+   * コンテナの初期化
+   */
+  private initContainer() {
+    this.container = document.createElement("div");
+    this.container.style.display = "inline-flex";
+    this.container.style.position = "relative";
+
+    document.body.appendChild(this.container);
   }
 
   /**
