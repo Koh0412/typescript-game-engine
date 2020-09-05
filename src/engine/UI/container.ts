@@ -11,6 +11,10 @@ class GameContainer {
     document.body.appendChild(this.container);
   }
 
+  /**
+   * コンテナ内にキャンバスを追加していく
+   * @param canvases
+   */
   add(...canvases: CanvasScreen[]): void {
     for (const canvas of canvases) {
       this.container.appendChild(canvas.element);

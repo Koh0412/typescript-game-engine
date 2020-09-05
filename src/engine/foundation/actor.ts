@@ -1,6 +1,6 @@
 import { EventDispatcher } from "../event/eventDispatcher";
 import { Rectangle } from "./display/rectangle";
-import { GameObjectEvent, SceneEvent } from "../event";
+import { GameObjectEvent } from "../event";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";

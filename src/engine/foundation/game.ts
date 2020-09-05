@@ -83,6 +83,7 @@ export class Game {
     requestAnimationFrame(this.loop.bind(this));
   }
 
+  /** 渡すゲームの情報 */
   private get gameInfo(): IGameInfo {
     const screenRectangle = new Rectangle(0, 0, this.width, this.height);
     const gameInfo: IGameInfo = {

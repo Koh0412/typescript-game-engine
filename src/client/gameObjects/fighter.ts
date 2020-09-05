@@ -27,7 +27,6 @@ export class Fighter extends SpriteActor {
         this.destroy();
       }
     });
-
   }
 
   update(gameInfo: GameInformation, input: Input): void {

@@ -23,7 +23,7 @@ export class Scene extends EventDispatcher {
     this.canvas = canvas;
     this.destroyedActors = [];
 
-    addEventListener("click", (e) => {
+    this.canvas.element.addEventListener("click", (e) => {
       const rect = this.canvas.element.getBoundingClientRect();
       const point: Point2D = {
         x: e.clientX - rect.left,
