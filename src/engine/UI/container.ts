@@ -5,7 +5,6 @@ class GameContainer {
 
   constructor() {
     this.container = document.createElement("div");
-    this.container.style.display = "inline-flex";
     this.container.style.position = "relative";
 
     document.body.appendChild(this.container);

@@ -1,14 +1,28 @@
-export class CanvasScreen {
+import { EventDispatcher, ClickEvent } from "../../event";
+import { Point2D } from "../../common/interfaces/system";
+
+export class CanvasScreen extends EventDispatcher {
   name: string;
 
   private layer: number | undefined;
   private canvasElement: HTMLCanvasElement;
 
   constructor(name: string, width: number, height: number) {
+    super();
     this.name = name;
     this.canvasElement = document.createElement("canvas");
     this.canvasElement.width = width;
     this.canvasElement.height = height;
+    this.canvasElement.style.position = "absolute";
+
+    this.element.addEventListener("click", (e) => {
+      const rect = this.element.getBoundingClientRect();
+      const point: Point2D = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+      this.dispatch("click", new ClickEvent({ point: point }));
+    });
   }
 
   get element(): HTMLCanvasElement {
@@ -43,5 +57,13 @@ export class CanvasScreen {
   setLayer(index: number): void {
     this.layer = index;
     this.canvasElement.style.zIndex = this.layer.toLocaleString();
+  }
+
+  /**
+   * styleのpositionの値を変更
+   * @param value
+   */
+  changeStylesPosition(value: string) {
+    this.canvasElement.style.position = value;
   }
 }
