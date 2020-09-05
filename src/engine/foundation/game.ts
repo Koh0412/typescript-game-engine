@@ -10,7 +10,7 @@ export class Game {
   canvas: CanvasScreen;
 
   private isPause: boolean;
-  private currentScene: Scene | null = null;
+  private currentScene: Scene | undefined;
   private title: string;
   private width: number;
   private height: number;
@@ -39,7 +39,7 @@ export class Game {
    * fpsの上限の変更 デフォルトは60
    * @param max
    */
-  changeMaxFps(max: number) {
+  changeMaxFps(max: number): void {
     this.maxFps = max;
   }
 
@@ -72,7 +72,7 @@ export class Game {
    * 全体の背景色を設定(これを使用する場合は個別に背景色を設定出来ない)
    * @param color
    */
-  setGlobalBackgroundColor(color: string) {
+  setGlobalBackgroundColor(color: string): void {
     this.globalBackgroundColor = color;
   }
 

@@ -40,7 +40,7 @@ export class CanvasScreen {
    * レイヤーの設定
    * @param index
    */
-  setLayer(index: number) {
+  setLayer(index: number): void {
     this.layer = index;
     this.canvasElement.style.zIndex = this.layer.toLocaleString();
   }

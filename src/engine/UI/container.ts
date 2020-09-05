@@ -1,7 +1,7 @@
 import { CanvasScreen } from "../foundation";
 
 class GameContainer {
-  private container: HTMLElement | null = null;
+  private container: HTMLElement;
 
   constructor() {
     this.container = document.createElement("div");
@@ -13,7 +13,7 @@ class GameContainer {
 
   add(...canvases: CanvasScreen[]): void {
     for (const canvas of canvases) {
-      this.container?.appendChild(canvas.element);
+      this.container.appendChild(canvas.element);
     }
   }
 }
