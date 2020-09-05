@@ -3,7 +3,16 @@ import { Actor } from "./actor";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
-import { GameObjectEvent, SceneEvent, SceneClass } from "../event";
+import { GameObjectEvent, SceneEvent, SceneClass, GameEvent } from "../event";
+import { SceneEventKeyMap } from "../common/interfaces/event";
+
+export interface Scene {
+  addEventListener<K extends keyof SceneEventKeyMap>(type: K, callback: (e: SceneEventKeyMap[K]) => void): void;
+  addEventListener(type: string, callback: (e: GameEvent) => void): void;
+
+  dispatch<K extends keyof SceneEventKeyMap>(type: K,  event: SceneEventKeyMap[K]): void;
+  dispatch(type: string,  event: GameEvent): void;
+}
 
 export class Scene extends EventDispatcher {
   name: string;

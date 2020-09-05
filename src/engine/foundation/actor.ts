@@ -1,9 +1,18 @@
 import { EventDispatcher } from "../event/eventDispatcher";
 import { Rectangle } from "./display/rectangle";
-import { GameObjectEvent } from "../event";
+import { GameObjectEvent, GameEvent } from "../event";
 import { GameInformation } from "./gameInformation";
 import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
+import { ActorEventKeyMap } from "../common/interfaces/event";
+
+export interface Actor {
+  addEventListener<K extends keyof ActorEventKeyMap>(type: K, callback: (e: ActorEventKeyMap[K]) => void): void;
+  addEventListener(type: string, callback: (e: GameEvent) => void): void;
+
+  dispatch<K extends keyof ActorEventKeyMap>(type: K,  event: ActorEventKeyMap[K]): void;
+  dispatch(type: string,  event: GameEvent): void;
+}
 
 export class Actor extends EventDispatcher {
   hitArea: Rectangle;

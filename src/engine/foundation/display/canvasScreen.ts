@@ -1,5 +1,14 @@
-import { EventDispatcher, ClickEvent } from "../../event";
+import { EventDispatcher, ClickEvent, GameEvent } from "../../event";
 import { Point2D } from "../../common/interfaces/system";
+import { CanvasEventKeyMap } from "../../common/interfaces/event";
+
+export interface CanvasScreen {
+  addEventListener<K extends keyof CanvasEventKeyMap>(type: K, callback: (e: CanvasEventKeyMap[K]) => void): void;
+  addEventListener(type: string, callback: (e: GameEvent) => void): void;
+
+  dispatch<K extends keyof CanvasEventKeyMap>(type: K,  event: CanvasEventKeyMap[K]): void;
+  dispatch(type: string,  event: GameEvent): void;
+}
 
 export class CanvasScreen extends EventDispatcher {
   name: string;

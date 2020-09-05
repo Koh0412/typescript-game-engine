@@ -5,10 +5,16 @@ export interface IEventListeners {
   [type: string]: ((e: GameEvent) => any)[];
 }
 
-export interface EventKeyMap {
+export interface ActorEventKeyMap {
   "spawnactor": GameObjectEvent;
   "destroy": GameObjectEvent;
   "hit": GameObjectEvent;
+}
+
+export interface SceneEventKeyMap {
   "changeScene": SceneEvent;
+}
+
+export interface CanvasEventKeyMap {
   "click": ClickEvent;
 }
