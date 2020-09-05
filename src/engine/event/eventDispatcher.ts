@@ -1,6 +1,14 @@
 import { GameEvent } from "./gameEvent";
 import { IEventListeners, EventKeyMap } from "../common/interfaces/event";
 
+export interface EventDispatcher {
+  addEventListener<K extends keyof EventKeyMap>(type: K, callback: (e: EventKeyMap[K]) => void): void;
+  addEventListener(type: string, callback: (e: GameEvent) => void): void;
+
+  dispatch<K extends keyof EventKeyMap>(type: K,  event: EventKeyMap[K]): void;
+  dispatch(type: string,  event: GameEvent): void;
+}
+
 export class EventDispatcher {
   private eventListeners: IEventListeners;
 
@@ -13,11 +21,6 @@ export class EventDispatcher {
    * @param type
    * @param callback
    */
-  // ---------------------------internal interface-------------------------------
-  addEventListener<K extends keyof EventKeyMap>(type: K, callback: (e: EventKeyMap[K]) => void): void;
-  addEventListener(type: string, callback: (e: GameEvent) => void): void;
-  // ----------------------------------------------------------------------------
-
   addEventListener<K extends keyof EventKeyMap>(type: K, callback: (e: EventKeyMap[K]) => void): void {
     if (this.eventListeners[type] === undefined) {
       this.eventListeners[type] = [];
@@ -31,11 +34,6 @@ export class EventDispatcher {
    * @param type
    * @param event
    */
-  // ---------------internal interface------------------
-  dispatch<K extends keyof EventKeyMap>(type: K,  event: EventKeyMap[K]): void;
-  dispatch(type: string,  event: GameEvent): void;
-  // ---------------------------------------------------
-
   dispatch<K extends keyof EventKeyMap>(type: K,  event: EventKeyMap[K]): void {
     const listeners = this.eventListeners[type];
     if (listeners !== undefined) {
