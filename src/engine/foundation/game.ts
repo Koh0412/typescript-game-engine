@@ -4,11 +4,11 @@ import { GameInformation, IGameInfo } from "./gameInformation";
 import { CanvasScreen } from "./display/canvasScreen";
 import { InputReceiver } from "../UI";
 import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
+import { SceneClass } from "../event";
 
 export class Game {
   canvas: CanvasScreen;
 
-  private container: HTMLElement | null = null;
   private isPause: boolean;
   private currentScene: Scene | null = null;
   private title: string;
@@ -31,17 +31,8 @@ export class Game {
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
     this.isPause = false;
-    this.initContainer();
 
     console.log(`${title}が初期化されました。`);
-  }
-
-  /**
-   * ゲームを描くためのcanvasを追加
-   * @param canvas
-   */
-  addCanvas(canvas: CanvasScreen): void {
-    this.container?.appendChild(canvas.element);
   }
 
   /**
@@ -56,10 +47,10 @@ export class Game {
    * シーンの切り替え
    * @param newScene
    */
-  changeScene(newScene: Scene): void {
-    this.currentScene = newScene;
+  changeScene(newSceneClass: SceneClass): void {
+    this.currentScene = new newSceneClass(this.canvas);
     this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
-    console.log(`シーンが${newScene.name}に切り替わりました`);
+    console.log(`シーンが${this.currentScene.name}に切り替わりました`);
   }
 
   /**
@@ -102,17 +93,6 @@ export class Game {
       globalBackroundColor: this.globalBackgroundColor,
     };
     return gameInfo;
-  }
-
-  /**
-   * コンテナの初期化
-   */
-  private initContainer() {
-    this.container = document.createElement("div");
-    this.container.style.display = "inline-flex";
-    this.container.style.position = "relative";
-
-    document.body.appendChild(this.container);
   }
 
   /**

@@ -1,5 +1,7 @@
 export class CanvasScreen {
   name: string;
+
+  private layer: number | undefined;
   private canvasElement: HTMLCanvasElement;
 
   constructor(name: string, width: number, height: number) {
@@ -32,5 +34,14 @@ export class CanvasScreen {
    */
   get context2D(): CanvasRenderingContext2D | null {
     return this.canvasElement.getContext("2d");
+  }
+
+  /**
+   * レイヤーの設定
+   * @param index
+   */
+  setLayer(index: number) {
+    this.layer = index;
+    this.canvasElement.style.zIndex = this.layer.toLocaleString();
   }
 }

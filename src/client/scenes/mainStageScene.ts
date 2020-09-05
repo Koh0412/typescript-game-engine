@@ -13,9 +13,6 @@ export class MainStageScene extends Scene {
     const hpBar = new EnemyHpBar(50, 20, enemy);
     this.addAll([fighter, enemy, hpBar]);
 
-    fighter.addEventListener("destroy", () => {
-      const titleScene = new TitleScene(canvas);
-      this.changeScene(titleScene);
-    });
+    fighter.addEventListener("destroy", () => this.changeScene(TitleScene));
   }
 }

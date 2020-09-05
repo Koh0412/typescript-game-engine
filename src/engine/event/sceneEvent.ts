@@ -1,10 +1,14 @@
 import { GameEvent } from "./gameEvent";
-import { Scene } from "../foundation";
+import { Scene, CanvasScreen } from "../foundation";
+
+export interface SceneClass {
+  new (canvas: CanvasScreen): Scene;
+}
 
 export class SceneEvent extends GameEvent {
-  target: Scene;
+  target: SceneClass;
 
-  constructor(target: Scene) {
+  constructor(target: SceneClass) {
     super(target);
     this.target = target;
   }
