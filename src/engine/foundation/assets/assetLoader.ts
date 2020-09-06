@@ -45,6 +45,22 @@ export class AssetLoader {
   }
 
   /**
+   * `name`の画像をimageとして取得
+   * @param name
+   */
+  getAsImage(name: string): HTMLImageElement | undefined {
+    return this.assets.get(name) as HTMLImageElement;
+  }
+
+  /**
+   * `name`の画像をaudioとして取得
+   * @param name
+   */
+  getAsAudio(name: string): HTMLAudioElement | undefined {
+    return this.assets.get(name) as HTMLAudioElement;
+  }
+
+  /**
    * 全ての画像をロード
    */
   async loadAll(): Promise<Map<string, HTMLElement>> {
@@ -54,7 +70,7 @@ export class AssetLoader {
 
   private createAssetsPromise(el: HTMLElement, prop: IGameResource) {
     return new Promise<HTMLElement>((resolve) => {
-      el.addEventListener("load", (e) => {
+      addEventListener("load", () => {
         this.assets.set(prop.name, el);
         resolve(el);
       });
