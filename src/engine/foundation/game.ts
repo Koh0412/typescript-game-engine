@@ -6,8 +6,13 @@ import { InputReceiver } from "../UI";
 import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 import { SceneClass } from "../event";
 
+interface IGameOtions {
+  initlog?: boolean;
+}
+
 export class Game {
   canvas: CanvasScreen;
+  showSceneLog: boolean;
 
   private isPause: boolean;
   private currentScene: Scene | undefined;
@@ -20,19 +25,25 @@ export class Game {
   private prevTimestamp: number;
   private globalBackgroundColor: string | undefined;
 
-  constructor(title: string, width: number = 600, height: number = 400) {
+  constructor(title: string, width: number = 600, height: number = 400, options?: IGameOtions) {
     this.title = title;
     this.width = width;
     this.height = height;
     this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
     this.canvas = new CanvasScreen(title, width, height);
+    this.showSceneLog = true;
 
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
     this.isPause = false;
+    if (!options) {
+      options = this.defaultGameOptions;
+    }
 
-    console.log(`${title}が初期化されました。`);
+    if (options.initlog) {
+      console.log(`${title}が初期化されました。`);
+    }
   }
 
   /**
@@ -50,7 +61,9 @@ export class Game {
   changeScene(newSceneClass: SceneClass): void {
     this.currentScene = new newSceneClass(this.canvas);
     this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
-    console.log(`シーンが${this.currentScene.name}に切り替わりました`);
+    if (this.showSceneLog) {
+      console.log(`シーンが${this.currentScene.name}に切り替わりました`);
+    }
   }
 
   /**
@@ -94,6 +107,16 @@ export class Game {
       globalBackroundColor: this.globalBackgroundColor,
     };
     return gameInfo;
+  }
+
+  /**
+   * デフォルトのゲームオプション
+   */
+  private get defaultGameOptions() {
+    const options: IGameOtions = {
+      initlog: true
+    };
+    return options;
   }
 
   /**
