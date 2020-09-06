@@ -23,7 +23,7 @@ export class Fighter extends SpriteActor {
     this.velocityY = 0;
 
     this.addEventListener("hit", (e) => {
-      if(e.target.hasTag(tagName.ENEMY_BULLET)) {
+      if(e.target.hasTag(tagName.ENEMY_BULLET) || e.target.hasTag(tagName.ENEMY)) {
         this.destroy();
       }
     });

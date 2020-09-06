@@ -1,5 +1,9 @@
 import { assets } from "./assetLoader";
 
+interface IAutioOptions {
+  loop?: boolean;
+}
+
 export class AudioAssets {
   private name: string;
 
@@ -7,7 +11,7 @@ export class AudioAssets {
     this.name = assetsName;
   }
 
-  private get audio() {
+  private get audioElement() {
     const audio = assets.getAsAudio(this.name);
     if (!audio) {
       console.error(`assets name: ${this.name} is not exists.`);
@@ -20,21 +24,37 @@ export class AudioAssets {
    * オーディオの再生
    */
   play() {
-    if (!this.audio) {
-      return;
-    }
-    this.audio.play();
+    this.audioElement?.play();
   }
 
   /**
    * オーディオをストップし時間を初期化
    */
   stopAndInit() {
-    if (!this.audio) {
-      return;
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
     }
-    this.audio.pause();
-    this.audio.currentTime = 0;
   }
 
+  /**
+   * 詳細な属性を設定
+   * @param options
+   */
+  setOptions(options: IAutioOptions) {
+    if (this.audioElement) {
+      this.audioElement.loop = options.loop ?? false;
+    }
+  }
+
+  /**
+   * オーディオ関連のイベントリスナ
+   *
+   * @param type
+   * @param listener
+   * @param options
+   */
+  addEventListener<K extends keyof HTMLMediaElementEventMap>(type: K, listener: (this: HTMLAudioElement, ev: HTMLMediaElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void {
+    this.audioElement?.addEventListener(type, listener, options);
+  }
 }

@@ -4,6 +4,7 @@ import { Fighter } from "../gameObjects/fighter";
 import { Enemy } from "../gameObjects/enemy/enemy";
 import { EnemyHpBar } from "../gameObjects/enemy/enemyHpBar";
 import { GameOverScene } from "./gameOverScene";
+import { AudioAssets } from "../../engine/foundation/assets/audio";
 
 export class MainStageScene extends Scene {
   constructor(canvas: CanvasScreen) {
@@ -13,6 +14,14 @@ export class MainStageScene extends Scene {
     const hpBar = new EnemyHpBar(50, 20, enemy);
     this.addAll([fighter, enemy, hpBar]);
 
-    fighter.addEventListener("destroy", () => this.changeScene(GameOverScene));
+    const bgm = new AudioAssets("mainStage");
+    bgm.setOptions({ loop: true });
+
+    setTimeout(() => bgm.play(), 1000);
+
+    fighter.addEventListener("destroy", () => {
+      bgm.stopAndInit();
+      this.changeScene(GameOverScene);
+    });
   }
 }
