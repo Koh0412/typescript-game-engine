@@ -10,6 +10,7 @@ export class AudioAssets {
 
   constructor(assetsName: string) {
     this.name = assetsName;
+    this.setOptions({});
   }
 
   private get audioElement() {
@@ -45,7 +46,7 @@ export class AudioAssets {
   setOptions(options: IAutioOptions) {
     if (this.audioElement) {
       this.audioElement.loop = options.loop ?? false;
-      this.audioElement.volume = options.volume ?? 0.3;
+      this.audioElement.volume = options.volume ?? 0.2;
     }
   }
 
