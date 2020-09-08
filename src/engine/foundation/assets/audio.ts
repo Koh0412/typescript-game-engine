@@ -2,6 +2,7 @@ import { assets } from "./assetLoader";
 
 interface IAutioOptions {
   loop?: boolean;
+  volume?: number;
 }
 
 export class AudioAssets {
@@ -44,6 +45,7 @@ export class AudioAssets {
   setOptions(options: IAutioOptions) {
     if (this.audioElement) {
       this.audioElement.loop = options.loop ?? false;
+      this.audioElement.volume = options.volume ?? 0.3;
     }
   }
 
