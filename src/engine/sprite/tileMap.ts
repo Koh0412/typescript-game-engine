@@ -1,18 +1,23 @@
 import { assets } from "../foundation";
 
-export class TileMap {
+interface ITileProp {
   columns: number;
   rows: number;
+  /** タイルの幅高さ */
   tileSize: number;
-  tiles: number[];
+  /** 1列のタイルの枚数 */
+  tilesPerRow: number;
+}
 
+export class TileMap {
+  tileProp: ITileProp;
+
+  private tiles: number[];
   private assetName: string;
 
-  constructor(assetName: string, cols: number, rows: number, tileSize: number) {
+  constructor(assetName: string, tileProp: ITileProp) {
     this.assetName = assetName;
-    this.columns = cols;
-    this.rows = rows;
-    this.tileSize = tileSize;
+    this.tileProp = tileProp;
 
     this.tiles = [];
   }
@@ -20,7 +25,7 @@ export class TileMap {
   /**
    * アセットの取得
    */
-  get image(): HTMLImageElement | undefined {
+  private get image(): HTMLImageElement | undefined {
     return assets.getAsImage(this.assetName);
   }
 
@@ -29,7 +34,7 @@ export class TileMap {
    * @param tiles
    */
   setTiles(tiles: number[]) {
-    const tileLength = this.columns * this.rows;
+    const tileLength = this.tileProp.columns * this.tileProp.rows;
     if (tiles.length === tileLength) {
       this.tiles = tiles;
     } else {
@@ -48,7 +53,7 @@ export class TileMap {
    * @param row
    */
   getTile(col: number, row: number) {
-    return this.tiles[row * this.columns + col];
+    return this.tiles[row * this.tileProp.columns + col];
   }
 
   /**
@@ -56,20 +61,23 @@ export class TileMap {
    * @param ctx
    */
   drawTile(ctx: CanvasRenderingContext2D | null) {
-    for (let c = 0; c < this.columns; c++) {
-      for (let r = 0; r < this.rows; r++) {
+    const tSize = this.tileProp.tileSize;
+
+    for (let c = 0; c < this.tileProp.columns; c++) {
+      for (let r = 0; r < this.tileProp.rows; r++) {
         const tile = this.getTile(c, r);
+
         if (tile !== 0 && ctx && this.image) {
           ctx.drawImage(
             this.image,
-            (tile - 1) * this.tileSize,
-            0,
-            this.tileSize,
-            this.tileSize,
-            c * this.tileSize,
-            r * this.tileSize,
-            this.tileSize,
-            this.tileSize
+            Math.floor((tile - 1) % this.tileProp.tilesPerRow) * tSize,
+            Math.floor((tile - 1) / this.tileProp.tilesPerRow) * tSize,
+            tSize,
+            tSize,
+            c * tSize,
+            r * tSize,
+            tSize,
+            tSize
           );
         }
       }
