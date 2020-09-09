@@ -10,24 +10,35 @@ interface IGameOtions {
   initlog?: boolean;
 }
 
+interface IGameSize {
+  width: number;
+  height: number;
+}
+
 export class Game {
   canvas: CanvasScreen;
   showSceneLog: boolean;
 
-  private isPause: boolean;
-  private currentScene: Scene | undefined;
-  private title: string;
   private width: number;
   private height: number;
+  private originalSize: IGameSize;
+
   private maxFps: number;
   private currentFps: number;
-  private inputReceiver: InputReceiver;
   private prevTimestamp: number;
+
+  private isPause: boolean;
+  private title: string;
+
+  private currentScene: Scene | undefined;
+  private inputReceiver: InputReceiver;
   private globalBackgroundColor: string | undefined;
+  private resizeListener: { func: () => void } | undefined;
 
   constructor(title: string, width: number = 600, height: number = 400, options?: IGameOtions) {
     this.title = title;
     this.width = width;
+    this.originalSize = { width, height };
     this.height = height;
     this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
@@ -63,6 +74,26 @@ export class Game {
     this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
     if (this.showSceneLog) {
       console.log(`シーンが${this.currentScene.name}に切り替わりました`);
+    }
+  }
+
+  /**
+   * フルスクリーン表示
+   */
+  fullScreen() {
+    const func = () => this.canvasResize(innerWidth, innerHeight, "0");
+    this.resizeListener = { func };
+    func();
+    addEventListener("resize", func, false);
+  }
+
+  /**
+   * 元のサイズに戻す
+   */
+  backOriginalSizeScreen() {
+    this.canvasResize(this.originalSize.width, this.originalSize.height, "0.5rem");
+    if (this.resizeListener) {
+      removeEventListener("resize", this.resizeListener.func, false);
     }
   }
 
@@ -109,10 +140,17 @@ export class Game {
     return gameInfo;
   }
 
+  private canvasResize(width: number, height: number, marginStyle: string): void {
+    this.width = width;
+    this.height = height;
+    this.canvas.setSize(width, height);
+    document.body.style.margin = marginStyle;
+  }
+
   /**
    * デフォルトのゲームオプション
    */
-  private get defaultGameOptions() {
+  private get defaultGameOptions(): IGameOtions {
     const options: IGameOtions = {
       initlog: true
     };

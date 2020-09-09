@@ -46,6 +46,16 @@ export class CanvasScreen extends EventDispatcher {
   }
 
   /**
+   * キャンバスのサイズの設定
+   * @param width
+   * @param height
+   */
+  setSize(width: number, height: number) {
+    this.canvasElement.width = width;
+    this.canvasElement.height = height;
+  }
+
+  /**
    * canvasのheightの取得
    */
   get height(): number {
