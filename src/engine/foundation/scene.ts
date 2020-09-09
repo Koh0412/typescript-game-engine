@@ -5,7 +5,8 @@ import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
 import { GameObjectEvent, SceneEvent, SceneClass, GameEvent } from "../event";
 import { SceneEventKeyMap } from "../common/interfaces/event";
-import { TileMap, ITileProp } from "../sprite/tileMap";
+import { TileMap } from "../sprite/tileMap";
+import { Camera } from "./camera";
 
 export interface Scene {
   addEventListener<K extends keyof SceneEventKeyMap>(type: K, callback: (e: SceneEventKeyMap[K]) => void): void;
@@ -55,8 +56,13 @@ export class Scene extends EventDispatcher {
     this.backgroundColor = color;
   }
 
-  createTileMap(assetName: string, tileProp: ITileProp) {
-    return new TileMap(assetName, tileProp);
+  /**
+   * タイルマップのカメラを生成
+   */
+  createTileMapCamera() {
+    if (this.tileMap) {
+      return new Camera(this.tileMap, this.canvas.width, this.canvas.height);
+    }
   }
 
   /**

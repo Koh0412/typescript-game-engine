@@ -7,19 +7,20 @@ export class TileScene extends Scene {
     super("tile", canvas);
 
     this.tileMap = new TileMap("tiles", {
-      columns: 5,
-      rows: 7,
+      columns: 8,
+      rows: 8,
       tileSize: 64,
       tilesPerRow: 5
     });
     this.tileMap.setTiles([
-      3, 3, 3, 3, 3,
-      1, 1, 1, 1, 1,
-      1, 1, 1, 2, 1,
-      1, 2, 1, 1, 1,
-      1, 1, 1, 1, 1,
-      1, 1, 1, 1, 1,
-      1, 1, 1, 1, 1,
+      1, 3, 3, 3, 1, 1, 3, 1,
+      1, 1, 1, 1, 1, 1, 1, 1,
+      1, 1, 1, 1, 1, 2, 1, 1,
+      1, 1, 1, 1, 1, 1, 1, 1,
+      1, 1, 1, 2, 1, 1, 1, 1,
+      1, 1, 1, 1, 2, 1, 1, 1,
+      1, 1, 1, 1, 2, 1, 1, 1,
+      1, 1, 1, 1, 2, 1, 1, 1
     ]);
 
     const fighter = new Fighter(100, 200);

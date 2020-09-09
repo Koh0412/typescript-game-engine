@@ -1,23 +1,25 @@
 import { assets } from "../foundation";
+import { Camera } from "../foundation/camera";
 
 export interface ITileProp {
   columns: number;
   rows: number;
   /** タイルの幅高さ */
   tileSize: number;
-  /** 1列のタイルの枚数 */
+  /** 使用する画像における1列のタイルの枚数 */
   tilesPerRow: number;
 }
 
 export class TileMap {
-  tileProp: ITileProp;
+  prop: ITileProp;
+  camera: Camera | undefined;
 
   private tiles: number[];
   private assetName: string;
 
   constructor(assetName: string, tileProp: ITileProp) {
     this.assetName = assetName;
-    this.tileProp = tileProp;
+    this.prop = tileProp;
 
     this.tiles = [];
   }
@@ -34,7 +36,7 @@ export class TileMap {
    * @param tiles
    */
   setTiles(tiles: number[]) {
-    const tileLength = this.tileProp.columns * this.tileProp.rows;
+    const tileLength = this.prop.columns * this.prop.rows;
     if (tiles.length === tileLength) {
       this.tiles = tiles;
     } else {
@@ -53,7 +55,7 @@ export class TileMap {
    * @param row
    */
   getTile(col: number, row: number) {
-    return this.tiles[row * this.tileProp.columns + col];
+    return this.tiles[row * this.prop.columns + col];
   }
 
   /**
@@ -61,21 +63,78 @@ export class TileMap {
    * @param ctx
    */
   drawTile(ctx: CanvasRenderingContext2D | null) {
-    const tSize = this.tileProp.tileSize;
+    if (this.camera) {
+      this.drawTileWithCamera(ctx);
+    } else {
+      this.drawTileNoCamera(ctx);
+    }
+  }
 
-    for (let c = 0; c < this.tileProp.columns; c++) {
-      for (let r = 0; r < this.tileProp.rows; r++) {
+  /**
+   * カメラなしでのタイル描画
+   * @param ctx
+   */
+  private drawTileNoCamera(ctx: CanvasRenderingContext2D | null) {
+    const tSize = this.prop.tileSize;
+
+    for (let c = 0; c < this.prop.columns; c++) {
+      for (let r = 0; r < this.prop.rows; r++) {
         const tile = this.getTile(c, r);
 
+        //tile === 0 は空タイル
         if (tile !== 0 && ctx && this.image) {
           ctx.drawImage(
             this.image,
-            Math.floor((tile - 1) % this.tileProp.tilesPerRow) * tSize,
-            Math.floor((tile - 1) / this.tileProp.tilesPerRow) * tSize,
+            // TODO: 適切な説明
+            Math.floor((tile - 1) % this.prop.tilesPerRow) * tSize,
+            Math.floor((tile - 1) / this.prop.tilesPerRow) * tSize,
             tSize,
             tSize,
             c * tSize,
             r * tSize,
+            tSize,
+            tSize
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   * カメラありのタイル描画
+   * @param ctx
+   */
+  private drawTileWithCamera(ctx: CanvasRenderingContext2D | null) {
+    if (!this.camera) {
+      return;
+    }
+    const tSize = this.prop.tileSize;
+
+    const startCol = Math.floor(this.camera.x / tSize);
+    const endCol = startCol + (this.camera.width / tSize);
+
+    const startRow = Math.floor(this.camera.y / tSize);
+    const endRow = startRow + (this.camera.height / tSize);
+
+    const offsetX = -this.camera.x + startCol * tSize;
+    const offsetY = -this.camera.y + startRow * tSize;
+
+    for (let c = startCol; c <= endCol; c++) {
+      for (let r = startRow; r <= endRow; r++) {
+        const tile = this.getTile(c, r);
+        const x = (c - startCol) * tSize + offsetX;
+        const y = (r - startRow) * tSize + offsetY;
+        //tile === 0 は空タイル
+        if (tile !== 0 && ctx && this.image) {
+          ctx.drawImage(
+            this.image,
+            // TODO: 適切な説明
+            Math.floor((tile - 1) % this.prop.tilesPerRow) * tSize,
+            Math.floor((tile - 1) / this.prop.tilesPerRow) * tSize,
+            tSize,
+            tSize,
+            Math.round(x),
+            Math.round(y),
             tSize,
             tSize
           );
