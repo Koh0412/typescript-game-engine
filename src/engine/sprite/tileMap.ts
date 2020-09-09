@@ -1,6 +1,6 @@
 import { assets } from "../foundation";
 
-interface ITileProp {
+export interface ITileProp {
   columns: number;
   rows: number;
   /** タイルの幅高さ */

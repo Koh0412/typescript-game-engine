@@ -1,6 +1,7 @@
 import { Scene, GameInformation, CanvasScreen } from "../../engine/foundation";
 import { MainStageScene } from "./mainStageScene";
 import { Input, TextBox } from "../../engine/UI";
+import { TileScene } from "./TileScene";
 
 export class TitleScene extends Scene {
   private title: TextBox;
@@ -19,6 +20,10 @@ export class TitleScene extends Scene {
 
     if(input.getKeyDown("Space")) {
       this.changeScene(MainStageScene);
+    }
+
+    if(input.getKeyDown("a")) {
+      this.changeScene(TileScene);
     }
   }
 }

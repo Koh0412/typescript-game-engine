@@ -5,6 +5,7 @@ import { Input } from "../UI/input";
 import { CanvasScreen } from "./display/canvasScreen";
 import { GameObjectEvent, SceneEvent, SceneClass, GameEvent } from "../event";
 import { SceneEventKeyMap } from "../common/interfaces/event";
+import { TileMap, ITileProp } from "../sprite/tileMap";
 
 export interface Scene {
   addEventListener<K extends keyof SceneEventKeyMap>(type: K, callback: (e: SceneEventKeyMap[K]) => void): void;
@@ -16,6 +17,7 @@ export interface Scene {
 
 export class Scene extends EventDispatcher {
   name: string;
+  tileMap: TileMap | undefined;
 
   protected canvas: CanvasScreen;
   private actors: Actor[];
@@ -51,6 +53,10 @@ export class Scene extends EventDispatcher {
    */
   setBackgroundColor(color: string): void {
     this.backgroundColor = color;
+  }
+
+  createTileMap(assetName: string, tileProp: ITileProp) {
+    return new TileMap(assetName, tileProp);
   }
 
   /**
@@ -139,6 +145,7 @@ export class Scene extends EventDispatcher {
    * 全ての描画処理を行う
    */
   private renderAll(): void {
+    this.tileMap?.drawTile(this.canvas.context2D);
     this.actors.forEach((obj) => obj.render(this.canvas));
   }
 
