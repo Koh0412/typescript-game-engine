@@ -14,9 +14,10 @@ export class MainStageScene extends Scene {
     const hpBar = new EnemyHpBar(50, 20, enemy);
     this.addAll([fighter, enemy, hpBar]);
 
+    this.setBackgroundImage("universe");
+
     const bgm = new AudioAssets("mainStage");
     bgm.setOptions({ loop: true });
-
     setTimeout(() => bgm.play(), 1000);
 
     fighter.addEventListener("destroy", () => {

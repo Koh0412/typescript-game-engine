@@ -8,6 +8,11 @@ export const resources: IGameResource[] = [
     type: "iamge",
   },
   {
+    name: "universe",
+    fileURL: "resources/img/universe.jpg",
+    type: "iamge",
+  },
+  {
     name: "tiles",
     fileURL: "resources/img/tiles.png",
     type: "iamge",
