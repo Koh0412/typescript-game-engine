@@ -58,6 +58,10 @@ export class Scene extends EventDispatcher {
     this.backgroundColor = color;
   }
 
+  /**
+   * キャンバスの背景画像を設定
+   * @param assetName
+   */
   setBackgroundImage(assetName: string) {
     this.backgroundImage = assets.getAsImage(assetName);
   }
@@ -69,6 +73,15 @@ export class Scene extends EventDispatcher {
     if (this.tileMap) {
       return new Camera(this.tileMap, this.canvas.width, this.canvas.height);
     }
+  }
+
+  /**
+   * actorを配列から削除
+   * @param actor
+   */
+  remove(actor: Actor): void {
+    const index = this.actors.indexOf(actor);
+    this.actors.splice(index, 1);
   }
 
   /**
@@ -97,15 +110,6 @@ export class Scene extends EventDispatcher {
    */
   protected addAll(actors: Actor[]): void {
     actors.forEach((actor) => this.add(actor));
-  }
-
-  /**
-   * actorを配列から削除
-   * @param actor
-   */
-  remove(actor: Actor): void {
-    const index = this.actors.indexOf(actor);
-    this.actors.splice(index, 1);
   }
 
   /**
