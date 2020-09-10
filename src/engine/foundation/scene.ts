@@ -103,7 +103,7 @@ export class Scene extends EventDispatcher {
    * actorを配列から削除
    * @param actor
    */
-  private remove(actor: Actor): void {
+  remove(actor: Actor): void {
     const index = this.actors.indexOf(actor);
     this.actors.splice(index, 1);
   }

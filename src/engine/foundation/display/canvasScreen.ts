@@ -30,7 +30,7 @@ export class CanvasScreen extends EventDispatcher {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
       };
-      this.dispatch("click", new ClickEvent({ point: point }));
+      this.dispatch("click", new ClickEvent({ canvas: this, point: point }));
     });
   }
 
