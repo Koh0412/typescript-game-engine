@@ -36,15 +36,17 @@ export class TileMap {
    * @param tiles
    */
   setTiles(tiles: number[]) {
-    const tileLength = this.prop.columns * this.prop.rows;
-    if (tiles.length === tileLength) {
+    const multiplied = this.prop.columns * this.prop.rows;
+    const necessary = Math.abs(multiplied - tiles.length);
+
+    if (tiles.length === multiplied) {
       this.tiles = tiles;
     } else {
-      if (tiles.length < tileLength) {
-        console.error(`tile length: ${tiles.length} Too few tiles. please set the length multiplied by columns and rows.`)
+      if (tiles.length < multiplied) {
+        console.error(`tile length -> ${tiles.length}: Too few tiles. please add ${necessary} tile.`);
       }
-      if (tiles.length > tileLength) {
-        console.error(`tile length: ${tiles.length} Too many tiles. please set the length multiplied by columns and rows.`)
+      if (tiles.length > multiplied) {
+        console.error(`tile length -> ${tiles.length} Too many tiles. please remove ${necessary} tile.`)
       }
     }
   }
