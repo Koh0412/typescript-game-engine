@@ -7,7 +7,7 @@ import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 import { SceneClass } from "../event";
 
 interface IGameOtions {
-  initlog?: boolean;
+  initlog: boolean;
 }
 
 interface IGameSize {
@@ -34,8 +34,9 @@ export class Game {
   private inputReceiver: InputReceiver;
   private globalBackgroundColor: string | undefined;
   private resizeListener: { func: () => void } | undefined;
+  private options: IGameOtions | undefined;
 
-  constructor(title: string, width: number = 600, height: number = 400, options?: IGameOtions) {
+  constructor(title: string, width: number = 600, height: number = 400) {
     this.title = title;
     this.width = width;
     this.originalSize = { width, height };
@@ -48,11 +49,8 @@ export class Game {
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
     this.isPause = false;
-    if (!options) {
-      options = this.defaultGameOptions;
-    }
 
-    if (options.initlog) {
+    if (this.options?.initlog) {
       console.log(`${title}が初期化されました。`);
     }
   }
@@ -118,6 +116,15 @@ export class Game {
    */
   setGlobalBackgroundColor(color: string): void {
     this.globalBackgroundColor = color;
+  }
+
+  /**
+   * ゲームオプション
+   * @param options
+   */
+  setOptions(options: Partial<IGameOtions>) {
+    const mergeOptions = { ...this.defaultGameOptions, ...options };
+    this.options = mergeOptions;
   }
 
   /**

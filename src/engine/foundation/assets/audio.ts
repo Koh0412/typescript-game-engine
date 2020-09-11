@@ -1,18 +1,16 @@
 import { assets } from "./assetLoader";
 
-export const globalAudioOptions: IGlobalAudioOptions = {
+export const globalAudioOptions: IAudioOptions = {
   loop: false,
   volume: 0.2,
   muted: false
 };
 
-interface IGlobalAudioOptions {
+interface IAudioOptions {
   loop: boolean;
   volume: number;
   muted: boolean;
 }
-
-export type IAudioOptions = Partial<IGlobalAudioOptions>;
 
 export class AudioAssets {
   private name: string;
@@ -52,11 +50,13 @@ export class AudioAssets {
    * 詳細な属性を設定
    * @param options
    */
-  setOptions(options: IAudioOptions) {
+  setOptions(options: Partial<IAudioOptions>) {
+    const mergeOption = { ...globalAudioOptions, ...options };
+
     if (this.audioElement) {
-      this.audioElement.loop = options.loop ?? globalAudioOptions.loop;
-      this.audioElement.volume = options.volume ?? globalAudioOptions.volume;
-      this.audioElement.muted = options.muted ?? globalAudioOptions.muted;
+      this.audioElement.loop = mergeOption.loop;
+      this.audioElement.volume = mergeOption.volume;
+      this.audioElement.muted = mergeOption.muted;
     }
   }
 
