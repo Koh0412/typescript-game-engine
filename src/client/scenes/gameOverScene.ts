@@ -22,9 +22,14 @@ export class GameOverScene extends Scene {
     super.update(info, input);
     this.title.centering();
 
-    if(input.getKeyDown("Enter")) {
-      this.bgm.stopAndInit();
-      this.changeScene(TitleScene);
-    }
+    input.keyDown("Enter", () => this.keyDownEnter());
+  }
+
+  /**
+   * Enter押下時の処理
+   */
+  keyDownEnter() {
+    this.bgm.stopAndInit();
+    this.changeScene(TitleScene);
   }
 }

@@ -19,23 +19,33 @@ export class Input {
   }
 
   /**
-   * keydownしているかどうかを取得
+   * keydown時の処理
    * @param keyName
+   * @param callback
    */
-  getKeyDown(keyName: string): boolean | undefined {
+  keyDown(keyName: string, callback: () => void): void {
     const prevDown = this.getPrevKey(keyName);
     const currentDown = this.getKey(keyName);
-    return (!prevDown && currentDown);
+    const keydown = !prevDown && currentDown;
+
+    if (keydown) {
+      callback();
+    }
   }
 
   /**
-   * keyupしているかどうかを取得
+   * keyup時の処理
    * @param keyName
+   * @param callback
    */
-  getKeyUp(keyName: string): boolean | undefined {
+  keyUp(keyName: string, callback: () => void): void {
     const prevDown = this.getPrevKey(keyName);
     const currentDown = this.getKey(keyName);
-    return (prevDown && !currentDown);
+    const keydown = (prevDown && !currentDown);
+
+    if (keydown) {
+      callback();
+    }
   }
 
   /**
