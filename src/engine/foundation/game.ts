@@ -127,7 +127,7 @@ export class Game {
     requestAnimationFrame(this.loop.bind(this));
   }
 
-  /** 渡すゲームの情報 */
+  /** updateに渡すゲームの情報 */
   private get gameInfo(): IGameInfo {
     const screenRectangle = new Rectangle(0, 0, this.width, this.height);
     const gameInfo: IGameInfo = {
@@ -140,6 +140,12 @@ export class Game {
     return gameInfo;
   }
 
+  /**
+   * キャンバスのリサイズを行う
+   * @param width
+   * @param height
+   * @param marginStyle
+   */
   private canvasResize(width: number, height: number, marginStyle: string): void {
     this.width = width;
     this.height = height;

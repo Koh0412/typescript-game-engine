@@ -68,6 +68,12 @@ export class AssetLoader {
     return this.assets;
   }
 
+  //TODO: 適切な説明
+  /**
+   * アセットのプロミスを作る
+   * @param el
+   * @param prop
+   */
   private createAssetsPromise(el: HTMLElement, prop: IGameResource) {
     return new Promise<HTMLElement>((resolve) => {
       addEventListener("load", () => {

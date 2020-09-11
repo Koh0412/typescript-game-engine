@@ -20,6 +20,11 @@ export class Camera {
     this.maxY = prop.rows * prop.tileSize - height;
   }
 
+  /**
+   * カメラを動かす
+   * @param dirX
+   * @param dirY
+   */
   move(dirX: number, dirY: number) {
     this.x += dirX;
     this.y += dirY;
