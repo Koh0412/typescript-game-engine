@@ -23,8 +23,8 @@ export class MainStageScene extends Scene {
 
     setTimeout(() => this.bgm.play(), 1000);
 
-    this.fighter.addEventListener("destroy", this.fighterDestroy());
-    this.enemy.addEventListener("destroy", this.enemyDestroy());
+    this.fighter.addEventListener("destroy", () => this.fighterDestroy());
+    this.enemy.addEventListener("destroy", () => this.enemyDestroy());
   }
 
   get clearMessage() {
@@ -45,19 +45,15 @@ export class MainStageScene extends Scene {
    * 自機が倒された時の処理
    */
   fighterDestroy() {
-    return () => {
-      this.bgm.stopAndInit();
-      this.changeScene(GameOverScene);
-    }
+    this.bgm.stopAndInit();
+    this.changeScene(GameOverScene);
   }
 
   /**
    * 敵を倒した時の処理
    */
   enemyDestroy() {
-    return () => {
-      this.add(this.clearMessage);
-      this.remove(this.hpBar);
-    }
+    this.add(this.clearMessage);
+    this.remove(this.hpBar);
   }
 }

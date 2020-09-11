@@ -21,8 +21,9 @@ export class Actor extends EventDispatcher {
   private tags: string[];
   private hitAreaOffsetX: number;
   private hitAreaOffsetY: number;
-  private _x: number = 0;
-  private _y: number = 0;
+
+  #x: number = 0;
+  #y: number = 0;
 
   constructor(x: number, y: number, hitArea: Rectangle, tags: string[] = []) {
     super();
@@ -35,25 +36,25 @@ export class Actor extends EventDispatcher {
     this.y = y;
   }
 
-  /** privateなxを取得 */
+  /** hard privateなxを取得 */
   get x(): number {
-    return this._x;
+    return this.#x;
   }
 
-  /** privateなxに値をセット */
+  /** hard privateなxに値をセット */
   set x(value: number) {
-    this._x = value;
+    this.#x = value;
     this.hitArea.x = value + this.hitAreaOffsetX;
   }
 
-  /** privateなyを取得 */
+  /** hard privateなyを取得 */
   get y(): number {
-    return this._y;
+    return this.#y;
   }
 
-  /** privateなyに値をセット */
+  /** hard privateなyに値をセット */
   set y(value: number) {
-    this._y = value;
+    this.#y = value;
     this.hitArea.y = value + this.hitAreaOffsetY;
   }
 
