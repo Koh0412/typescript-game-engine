@@ -5,15 +5,6 @@ import { Bullet } from "./bullet";
 import { Input } from "../../engine/UI";
 import { imageName, tagName } from "../common/constants/systemConst";
 
-type VoidFunc = () => void;
-
-interface IArrowKey {
-  up: VoidFunc;
-  down: VoidFunc;
-  right: VoidFunc;
-  left: VoidFunc;
-}
-
 export class Fighter extends SpriteActor {
   speed: number;
 
@@ -43,7 +34,7 @@ export class Fighter extends SpriteActor {
     this.velocityX = 0;
     this.velocityY = 0;
 
-    this.keyBind(input, {
+    input.arrowkeyBind({
       up: () => this.velocityY -= this.speed,
       down: () => this.velocityY += this.speed,
       right: () => this.velocityX += this.speed,
@@ -76,12 +67,5 @@ export class Fighter extends SpriteActor {
     this.spawnActor(bullet);
     this.initTimeCount();
     return bullet;
-  }
-
-  private keyBind(input: Input, key: IArrowKey) {
-    if (input.getKey("ArrowUp")) key.up();
-    if (input.getKey("ArrowDown")) key.down();
-    if (input.getKey("ArrowRight")) key.right();
-    if (input.getKey("ArrowLeft")) key.left();
   }
 }

@@ -7,7 +7,7 @@ import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 import { SceneClass } from "../event";
 
 interface IGameOtions {
-  initlog: boolean;
+  sceneLog: boolean;
 }
 
 interface IGameSize {
@@ -17,7 +17,6 @@ interface IGameSize {
 
 export class Game {
   canvas: CanvasScreen;
-  showSceneLog: boolean;
 
   private width: number;
   private height: number;
@@ -29,12 +28,12 @@ export class Game {
 
   private isPause: boolean;
   private title: string;
+  private options: IGameOtions;
+  private inputReceiver: InputReceiver;
 
   private currentScene: Scene | undefined;
-  private inputReceiver: InputReceiver;
   private globalBackgroundColor: string | undefined;
   private resizeListener: { func: () => void } | undefined;
-  private options: IGameOtions | undefined;
 
   constructor(title: string, width: number = 600, height: number = 400) {
     this.title = title;
@@ -44,15 +43,12 @@ export class Game {
     this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
     this.canvas = new CanvasScreen(title, width, height);
-    this.showSceneLog = true;
 
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;
     this.isPause = false;
 
-    if (this.options?.initlog) {
-      console.log(`${title}が初期化されました。`);
-    }
+    this.options = this.defaultGameOptions;
   }
 
   /**
@@ -70,7 +66,7 @@ export class Game {
   changeScene(newSceneClass: SceneClass): void {
     this.currentScene = new newSceneClass(this.canvas);
     this.currentScene.addEventListener("changeScene", (e) => this.changeScene(e.target));
-    if (this.showSceneLog) {
+    if (this.options.sceneLog) {
       console.log(`シーンが${this.currentScene.name}に切り替わりました`);
     }
   }
@@ -165,7 +161,7 @@ export class Game {
    */
   private get defaultGameOptions(): IGameOtions {
     const options: IGameOtions = {
-      initlog: true
+      sceneLog: true
     };
     return options;
   }

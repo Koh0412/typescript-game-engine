@@ -1,7 +1,6 @@
-import { Scene, CanvasScreen, GameInformation } from "../../engine/foundation";
+import { Scene, CanvasScreen, GameInformation, AudioAssets } from "../../engine/foundation";
 import { TextBox, Input } from "../../engine/UI";
 import { TitleScene } from "./titleScene";
-import { AudioAssets } from "../../engine/foundation/assets/audio";
 
 export class GameOverScene extends Scene {
   title: TextBox;

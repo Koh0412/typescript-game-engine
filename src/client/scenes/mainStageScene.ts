@@ -1,11 +1,10 @@
-import { Scene, CanvasScreen } from "../../engine/foundation";
+import { Scene, CanvasScreen, AudioAssets } from "../../engine/foundation";
+import { TextBox } from "../../engine/UI";
 
 import { Fighter } from "../gameObjects/fighter";
 import { Enemy } from "../gameObjects/enemy/enemy";
 import { EnemyHpBar } from "../gameObjects/enemy/enemyHpBar";
 import { GameOverScene } from "./gameOverScene";
-import { AudioAssets } from "../../engine/foundation/assets/audio";
-import { TextBox } from "../../engine/UI";
 
 export class MainStageScene extends Scene {
   fighter: Fighter;

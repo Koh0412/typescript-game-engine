@@ -1,3 +1,12 @@
+type VoidFunc = () => void;
+
+interface IArrowKey {
+  up: VoidFunc;
+  down: VoidFunc;
+  right: VoidFunc;
+  left: VoidFunc;
+}
+
 export class Input {
   private keyMap: Map<string, boolean>;
   private prevKeyMap: Map<string, boolean>;
@@ -23,7 +32,7 @@ export class Input {
    * @param keyName
    * @param callback
    */
-  keyDown(keyName: string, callback: () => void): void {
+  keyDown(keyName: string, callback: VoidFunc): void {
     const prevDown = this.getPrevKey(keyName);
     const currentDown = this.getKey(keyName);
     const keydown = !prevDown && currentDown;
@@ -38,7 +47,7 @@ export class Input {
    * @param keyName
    * @param callback
    */
-  keyUp(keyName: string, callback: () => void): void {
+  keyUp(keyName: string, callback: VoidFunc): void {
     const prevDown = this.getPrevKey(keyName);
     const currentDown = this.getKey(keyName);
     const keydown = (prevDown && !currentDown);
@@ -46,6 +55,26 @@ export class Input {
     if (keydown) {
       callback();
     }
+  }
+
+  /**
+   * keypress時の処理
+   * @param keyName
+   * @param callback
+   */
+  keyPress(keyName: string, callback: VoidFunc) {
+    if (this.getKey(keyName)) callback();
+  }
+
+  /**
+   * 方向キーのバインドを行う
+   * @param key
+   */
+  arrowkeyBind(key: IArrowKey) {
+    this.keyPress("ArrowUp", () => key.up());
+    this.keyPress("ArrowDown", () => key.down());
+    this.keyPress("ArrowRight", () => key.right());
+    this.keyPress("ArrowLeft", () => key.left());
   }
 
   /**

@@ -1,5 +1,4 @@
-import { assets } from "../foundation";
-import { Camera } from "../foundation/camera";
+import { assets, Camera } from "../foundation";
 
 export interface ITileProp {
   columns: number;
@@ -17,9 +16,9 @@ export class TileMap {
   private tiles: number[];
   private assetName: string;
 
-  constructor(assetName: string, tileProp: ITileProp) {
+  constructor(assetName: string, prop: ITileProp) {
     this.assetName = assetName;
-    this.prop = tileProp;
+    this.prop = prop;
 
     this.tiles = [];
   }
