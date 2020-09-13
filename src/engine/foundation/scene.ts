@@ -130,7 +130,7 @@ export class Scene extends EventDispatcher {
       for(let j = i + 1; j < length; j++) {
         const obj1 = this.actors[i];
         const obj2 = this.actors[j];
-        const hit = obj1.hitArea.hitTestRect(obj2.hitArea);
+        const hit = obj1.hitArea.collide(obj2.hitArea);
         if(hit) {
           obj1.dispatch("hit", new GameObjectEvent(obj2));
           obj2.dispatch("hit", new GameObjectEvent(obj1));

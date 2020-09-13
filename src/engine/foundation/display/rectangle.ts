@@ -20,7 +20,7 @@ export class Rectangle {
    * 矩形同士が当たったかを判定
    * @param other
    */
-  hitTestRect(other: Rectangle): boolean {
+  collide(other: Rectangle): boolean {
     const horizontal = (other.x < this.x + this.width) &&
       (this.x < other.x + other.width);
     const vertical = (other.y < this.y + this.height) &&
@@ -29,10 +29,10 @@ export class Rectangle {
   }
 
   /**
-   * 矩形をクリックしているかどうかを判定
+   * 矩形をクリックしているかどうかを判定 clickイベント時に使用
    * @param point
    */
-  rectClickTest(point: Point2D): boolean {
+  rectClick(point: Point2D): boolean {
     const hit = (this.x <= point.x && point.x <= this.x + this.width) &&
       (this.y <= point.y && point.y <= this.y + this.height);
     return hit;
