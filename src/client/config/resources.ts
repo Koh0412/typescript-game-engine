@@ -1,4 +1,4 @@
-import { imageName } from "../common/constants/systemConst";
+import { audioName, imageName } from "../common/constants/systemConst";
 import { IGameResource } from "../../engine/foundation";
 
 export const resources: IGameResource[] = [
@@ -8,22 +8,22 @@ export const resources: IGameResource[] = [
     type: "iamge",
   },
   {
-    name: "universe",
+    name: imageName.UNIVERSE,
     fileURL: "resources/img/universe.jpg",
     type: "iamge",
   },
   {
-    name: "tiles",
+    name: imageName.TILES,
     fileURL: "resources/img/tiles.png",
     type: "iamge",
   },
   {
-    name: "mainStage",
+    name: audioName.MAIN_STAGE,
     fileURL: "resources/audio/mainStage.mp3",
     type: "audio",
   },
   {
-    name: "gameover",
+    name: audioName.GAMEOVER,
     fileURL: "resources/audio/gameover.mp3",
     type: "audio",
   }

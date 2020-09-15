@@ -1,13 +1,13 @@
 import { Scene, CanvasScreen, GameInformation } from "../../engine/foundation";
 import { TileMap } from "../../engine/sprite";
 import { Input } from "../../engine/UI";
-import { Fighter } from "../gameObjects/fighter";
+import { imageName } from "../common/constants/systemConst";
 
 export class TileScene extends Scene {
   constructor(canvas: CanvasScreen) {
     super("tile", canvas);
 
-    this.tileMap = new TileMap("tiles", {
+    this.tileMap = new TileMap(imageName.TILES, {
       columns: 8,
       rows: 8,
       tileSize: 64,
@@ -24,9 +24,6 @@ export class TileScene extends Scene {
       1, 1, 1, 1, 2, 1, 1, 1
     ]);
     this.tileMap.camera = this.createTileMapCamera();
-
-    const fighter = new Fighter(100, 200);
-    // this.add(fighter);
   }
 
   update(info: GameInformation, input: Input) {

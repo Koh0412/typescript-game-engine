@@ -5,6 +5,7 @@ import { Fighter } from "../gameObjects/fighter";
 import { Enemy } from "../gameObjects/enemy/enemy";
 import { EnemyHpBar } from "../gameObjects/enemy/enemyHpBar";
 import { GameOverScene } from "./gameOverScene";
+import { audioName, imageName } from "../common/constants/systemConst";
 
 export class MainStageScene extends Scene {
   fighter: Fighter;
@@ -18,7 +19,7 @@ export class MainStageScene extends Scene {
     this.hpBar = new EnemyHpBar(50, 20, this.enemy);
 
     this.addAll([this.fighter, this.enemy, this.hpBar]);
-    this.setBackgroundImage("universe");
+    this.setBackgroundImage(imageName.UNIVERSE);
 
     setTimeout(() => this.bgm.play(), 1000);
 
@@ -35,7 +36,7 @@ export class MainStageScene extends Scene {
   }
 
   get bgm() {
-    const bgm = new AudioAssets("mainStage");
+    const bgm = new AudioAssets(audioName.MAIN_STAGE);
     bgm.setOptions({ loop: true });
     return bgm;
   }

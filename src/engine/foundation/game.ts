@@ -2,7 +2,7 @@ import { Scene } from "./scene";
 import { Rectangle } from "../foundation";
 import { GameInformation, IGameInfo } from "./gameInformation";
 import { CanvasScreen } from "./display/canvasScreen";
-import { InputReceiver } from "../UI";
+import { gameContainer, InputReceiver } from "../UI";
 import { DEFAULT_MAX_FPS } from "../common/constants/systemConstants";
 import { SceneClass } from "../event";
 
@@ -43,6 +43,7 @@ export class Game {
     this.maxFps = DEFAULT_MAX_FPS;
     this.currentFps = 0;
     this.canvas = new CanvasScreen(title, width, height);
+    gameContainer.add(this.canvas);
 
     this.inputReceiver = new InputReceiver();
     this.prevTimestamp = 0;

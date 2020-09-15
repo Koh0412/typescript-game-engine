@@ -1,5 +1,6 @@
 import { Scene, CanvasScreen, GameInformation, AudioAssets } from "../../engine/foundation";
 import { TextBox, Input } from "../../engine/UI";
+import { audioName } from "../common/constants/systemConst";
 import { TitleScene } from "./titleScene";
 
 export class GameOverScene extends Scene {
@@ -13,7 +14,7 @@ export class GameOverScene extends Scene {
 
     this.addAll([this.title]);
 
-    this.bgm = new AudioAssets("gameover");
+    this.bgm = new AudioAssets(audioName.GAMEOVER);
     this.bgm.play();
   }
 
