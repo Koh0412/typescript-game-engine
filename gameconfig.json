@@ -1,0 +1,29 @@
+{
+  "resources": [
+    {
+      "name": "sprite",
+      "fileURL": "resources/img/sprite.png",
+      "type": "iamge"
+    },
+    {
+      "name": "universe",
+      "fileURL": "resources/img/universe.jpg",
+      "type": "iamge"
+    },
+    {
+      "name": "tiles",
+      "fileURL": "resources/img/tiles.png",
+      "type": "iamge"
+    },
+    {
+      "name": "mainStage",
+      "fileURL": "resources/audio/mainStage.mp3",
+      "type": "audio"
+    },
+    {
+      "name": "gameover",
+      "fileURL": "resources/audio/gameover.mp3",
+      "type": "audio"
+    }
+  ]
+}

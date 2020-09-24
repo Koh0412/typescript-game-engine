@@ -1,8 +1,13 @@
 import { assets } from "../engine/foundation/assets/assetLoader";
 import { DanmakuGame } from "./config/danmakuGame";
-import { resources } from "./config/resources";
+import axios from "axios";
+import { IGameConfig } from "./common/interface/userDefine";
 
-assets.addResources(resources);
+axios.get<IGameConfig>("../../gameconfig.json")
+  .then((res) => {
+    const gameConfig = res.data;
+    assets.addResources(gameConfig.resources);
+  });
 
 assets.loadAll().then(() => {
   const game = new DanmakuGame();
