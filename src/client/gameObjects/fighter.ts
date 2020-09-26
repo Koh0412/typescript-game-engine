@@ -1,8 +1,8 @@
-import { SpriteActor, Sprite } from "../../engine/sprite";
-import { Rectangle, GameInformation } from "../../engine/foundation";
+import { SpriteActor, Sprite } from "@engine/sprite";
+import { Rectangle, GameInformation } from "@engine/foundation";
 
 import { Bullet } from "./bullet";
-import { Input } from "../../engine/UI";
+import { Input } from "@engine/UI";
 import { imageName, tagName } from "../common/constants/systemConst";
 
 export class Fighter extends SpriteActor {

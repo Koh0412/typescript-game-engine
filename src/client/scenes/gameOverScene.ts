@@ -1,5 +1,5 @@
-import { Scene, CanvasScreen, GameInformation, AudioAssets } from "../../engine/foundation";
-import { TextBox, Input } from "../../engine/UI";
+import { Scene, CanvasScreen, GameInformation, AudioAssets } from "@engine/foundation";
+import { TextBox, Input } from "@engine/UI";
 import { audioName } from "../common/constants/systemConst";
 import { TitleScene } from "./titleScene";
 

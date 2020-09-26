@@ -1,7 +1,7 @@
-import { Figure, CanvasScreen } from "../../../engine/foundation";
+import { Figure, CanvasScreen } from "@engine/foundation";
 import { Enemy } from "./enemy";
 import { EventName } from "../../common/constants/eventConst";
-import { GameObjectEvent } from "../../../engine/event";
+import { GameObjectEvent } from "@engine/event";
 
 export class EnemyHpBar extends Figure {
   private innerWidth: number;

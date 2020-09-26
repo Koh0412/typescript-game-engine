@@ -1,10 +1,10 @@
-import { SpriteActor, Sprite } from "../../../engine/sprite";
-import { Rectangle, GameInformation } from "../../../engine/foundation";
-import { GameObjectEvent } from "../../../engine/event";
+import { SpriteActor, Sprite } from "@engine/sprite";
+import { Rectangle, GameInformation } from "@engine/foundation";
+import { GameObjectEvent } from "@engine/event";
 
 import { EnemyBullet } from "./enemyBullet";
 import { EventName } from "../../common/constants/eventConst";
-import { Input } from "../../../engine/UI";
+import { Input } from "@engine/UI";
 import { imageName, tagName } from "../../common/constants/systemConst";
 
 export class Enemy extends SpriteActor {

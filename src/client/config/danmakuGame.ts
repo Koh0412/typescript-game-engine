@@ -1,4 +1,4 @@
-import { Game } from "../../engine/foundation";
+import { Game } from "@engine/foundation";
 import { TitleScene } from "../scenes/titleScene";
 
 export class DanmakuGame extends Game {

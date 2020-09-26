@@ -1,4 +1,4 @@
-import { IGameResource } from "../../../engine/foundation";
+import { IGameResource } from "@engine/foundation";
 
 export interface IGameConfig {
   resources: IGameResource[];

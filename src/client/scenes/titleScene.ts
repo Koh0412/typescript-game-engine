@@ -1,6 +1,6 @@
-import { Scene, GameInformation, CanvasScreen } from "../../engine/foundation";
+import { Scene, GameInformation, CanvasScreen } from "@engine/foundation";
 import { MainStageScene } from "./mainStageScene";
-import { Input, TextBox } from "../../engine/UI";
+import { Input, TextBox } from "@engine/UI";
 import { TileScene } from "./TileScene";
 
 export class TitleScene extends Scene {

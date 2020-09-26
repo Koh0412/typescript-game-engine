@@ -12,6 +12,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      '@engine': path.resolve(__dirname, './src/engine')
+    }
   },
   module: {
     rules: [

@@ -1,6 +1,6 @@
-import { Scene, CanvasScreen, GameInformation } from "../../engine/foundation";
-import { TileMap } from "../../engine/sprite";
-import { Input } from "../../engine/UI";
+import { Scene, CanvasScreen, GameInformation } from "@engine/foundation";
+import { TileMap } from "@engine/sprite";
+import { Input } from "@engine/UI";
 import { imageName } from "../common/constants/systemConst";
 
 export class TileScene extends Scene {

@@ -1,5 +1,5 @@
-import { Scene, CanvasScreen, AudioAssets } from "../../engine/foundation";
-import { TextBox } from "../../engine/UI";
+import { Scene, CanvasScreen, AudioAssets } from "@engine/foundation";
+import { TextBox } from "@engine/UI";
 
 import { Fighter } from "../gameObjects/fighter";
 import { Enemy } from "../gameObjects/enemy/enemy";
