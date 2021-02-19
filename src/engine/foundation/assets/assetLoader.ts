@@ -1,8 +1,4 @@
-export interface IGameResource {
-  name: string;
-  fileURL: string;
-  type: "iamge" | "audio";
-}
+import { IGameConfig, IGameResource } from "@engine/common/interfaces/system";
 
 export class AssetLoader {
   private assets: Map<string, HTMLElement>;
@@ -14,25 +10,18 @@ export class AssetLoader {
   }
 
   /**
-   * リソースをMapとして格納
+   * 全リソースをMapとして格納
    * @param assetProps
    */
-  addResources(resourceProps: IGameResource[]): void {
-    for (const prop of resourceProps) {
-      switch (prop.type) {
-        case "iamge":
-          const img = new Image();
-          img.src = prop.fileURL;
+  addAll(config: IGameConfig): void {
+    for (const resource of config.resources) {
+      const map = {
+        image: () => this.imageAssetHandler(resource),
+        audio: () => this.audioAssetHandler(resource),
+      };
 
-          this.promises.push(this.createAssetsPromise(img, prop));
-          break;
-        case "audio":
-          const audio = new Audio(prop.fileURL);
-          this.promises.push(this.createAssetsPromise(audio, prop));
-          break;
-        default:
-          break;
-      }
+      const handler = map[resource.type];
+      handler();
     }
   }
 
@@ -68,19 +57,38 @@ export class AssetLoader {
     return this.assets;
   }
 
-  //TODO: 適切な説明
   /**
-   * アセットのプロミスを作る
+   * リソース用のアセットを作る
    * @param el
    * @param prop
    */
-  private createAssetsPromise(el: HTMLElement, prop: IGameResource) {
+  private createResourceAssets(el: HTMLElement, resource: IGameResource) {
     return new Promise<HTMLElement>((resolve) => {
       addEventListener("load", () => {
-        this.assets.set(prop.name, el);
+        this.assets.set(resource.name, el);
         resolve(el);
       });
     });
+  }
+
+  /**
+   * 画像アセット生成ハンドラ
+   * @param resource 
+   */
+  private imageAssetHandler(resource: IGameResource) {
+    const img = new Image();
+    img.src = resource.fileURL;
+
+    this.promises.push(this.createResourceAssets(img, resource));
+  }
+
+  /**
+   * オーディオアセット生成ハンドラ
+   * @param resource 
+   */
+  private audioAssetHandler(resource: IGameResource) {
+    const audio = new Audio(resource.fileURL);
+    this.promises.push(this.createResourceAssets(audio, resource));
   }
 }
 

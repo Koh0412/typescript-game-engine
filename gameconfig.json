@@ -3,17 +3,17 @@
     {
       "name": "sprite",
       "fileURL": "resources/img/sprite.png",
-      "type": "iamge"
+      "type": "image"
     },
     {
       "name": "universe",
       "fileURL": "resources/img/universe.jpg",
-      "type": "iamge"
+      "type": "image"
     },
     {
       "name": "tiles",
       "fileURL": "resources/img/tiles.png",
-      "type": "iamge"
+      "type": "image"
     },
     {
       "name": "mainStage",
