@@ -16,5 +16,5 @@ export interface IGameMap {
 
 export interface IGameConfig {
   resources: IGameResource[];
-  maps: IGameMap[];
+  // maps: IGameMap[];
 }
